@@ -22,6 +22,15 @@
   <title>Can I Play GTA 6? — Reality &amp; PC Cope Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AE%3C/text%3E%3C/svg%3E">
+  <link rel="canonical" href="https://gta6-reality-check.embarko.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Can I Play GTA 6? — Reality &amp; PC Cope Simulator">
+  <meta property="og:description" content="1,560-Combination Reality &amp; Copium Engine: discover your true GTA 6 gaming eligibility and download your 9:16 story card.">
+  <meta property="og:url" content="https://gta6-reality-check.embarko.app/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Can I Play GTA 6? — Reality &amp; PC Cope Simulator">
+  <meta name="twitter:description" content="1,560-Combination Reality &amp; Copium Engine: discover your true GTA 6 gaming eligibility and download your 9:16 story card.">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap">
   <style>
@@ -1540,9 +1549,15 @@
       });
 
       scanTimers.push(setTimeout(() => {
-        currentResult = buildResult();
-        showScreen("result");
-        renderResult(currentResult);
+        try {
+          currentResult = buildResult();
+          showScreen("result");
+          renderResult(currentResult);
+        } catch (err) {
+          console.error("Diagnosis error:", err);
+          showToast("Something went wrong with the scan. Please try again.");
+          showScreen("input");
+        }
       }, SCAN_DURATION_MS));
     }
 
@@ -1994,40 +2009,66 @@
     async function drawStoryCard(result) {
       const token = ++drawToken;
       el.downloadBtn.disabled = true;
-      await fontsReady;
-      if (token !== drawToken) return;
+      try {
+        await Promise.race([
+          fontsReady,
+          new Promise((resolve) => setTimeout(resolve, 2500))
+        ]);
+        if (token !== drawToken) return;
 
-      const { W, H, PANEL_TOP, FOOTER_SPACE } = CANVAS;
-      const ctx = el.canvas.getContext("2d");
-      ctx.clearRect(0, 0, W, H);
-      drawBackground(ctx);
-      drawHeader(ctx);
+        const { W, H, PANEL_TOP, FOOTER_SPACE } = CANVAS;
+        const ctx = el.canvas.getContext("2d");
+        ctx.clearRect(0, 0, W, H);
+        drawBackground(ctx);
+        drawHeader(ctx);
 
-      const naturalHeight = drawContent(ctx, result, false) - PANEL_TOP;
-      const scale = Math.min(1, (H - FOOTER_SPACE - PANEL_TOP) / naturalHeight);
-      ctx.save();
-      ctx.translate(W / 2, PANEL_TOP);
-      ctx.scale(scale, scale);
-      ctx.translate(-W / 2, -PANEL_TOP);
-      drawPanel(ctx, naturalHeight);
-      drawContent(ctx, result, true);
-      ctx.restore();
-      drawFooter(ctx);
+        const naturalHeight = Math.max(100, drawContent(ctx, result, false) - PANEL_TOP);
+        const scale = Math.min(1, (H - FOOTER_SPACE - PANEL_TOP) / naturalHeight);
+        ctx.save();
+        ctx.translate(W / 2, PANEL_TOP);
+        ctx.scale(scale, scale);
+        ctx.translate(-W / 2, -PANEL_TOP);
+        drawPanel(ctx, naturalHeight);
+        drawContent(ctx, result, true);
+        ctx.restore();
+        drawFooter(ctx);
 
-      el.canvas.setAttribute("aria-label", `Story card. Verdict: ${result.verdict.stamp}. ${result.verdict.line} Download ETA ${result.download}. Cope score ${result.cope} percent, ${result.copeLabel}.`);
-      el.downloadBtn.disabled = false;
+        el.canvas.setAttribute("aria-label", `Story card. Verdict: ${result.verdict.stamp}. ${result.verdict.line} Download ETA ${result.download}. Cope score ${result.cope} percent, ${result.copeLabel}.`);
+        el.downloadBtn.disabled = false;
+      } catch (err) {
+        console.error("Canvas draw error:", err);
+      }
     }
 
     /* =========================================================
        SHARE ACTIONS
        ========================================================= */
     function downloadCard() {
-      const link = document.createElement("a");
-      link.href = el.canvas.toDataURL("image/png");
-      link.download = COPY.downloadName;
-      document.body.append(link);
-      link.click();
-      link.remove();
+      try {
+        el.canvas.toBlob((blob) => {
+          if (!blob) {
+            const link = document.createElement("a");
+            link.href = el.canvas.toDataURL("image/png");
+            link.download = COPY.downloadName;
+            document.body.append(link);
+            link.click();
+            link.remove();
+            return;
+          }
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = COPY.downloadName;
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+          showToast("Story card downloaded!");
+        }, "image/png");
+      } catch (err) {
+        console.error("Download failed:", err);
+        showToast("Download failed. Long-press image to save.");
+      }
     }
 
     async function copyText(text) {

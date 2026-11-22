@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<!--
+  Can I Play GTA 6? — Reality & PC Cope Simulator
+  Unofficial fan parody. Not affiliated with Rockstar Games or Take-Two.
+
+  HOW TO EDIT (everything lives at the top of the <script> block):
+  - Release dates, storage size, footer URL  -> CONFIG
+  - Dropdown options (value/label/group)     -> HARDWARE, BUDGET, NETWORK, LIFE (DATA)
+  - Verdict stamps, roast lines, and order   -> VERDICTS array (first match wins)
+  - Copium add-on lines                      -> COPIUM_MODIFIERS
+  - Scan lines, share/toast copy             -> SCAN_STEPS, COPY
+  Anything marked "VERIFY before launch" is a placeholder, not a confirmed fact.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f0718">
+  <meta name="description" content="Fan-made parody meme generator: find out if you can actually play GTA 6 and get your 9:16 Copium story card.">
+  <title>Can I Play GTA 6? — Reality &amp; PC Cope Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --bg: #0f0718;
+      --panel: rgba(30, 12, 48, 0.78);
+      --pink: #ff2a85;
+      --orange: #ff7b00;
+      --cyan: #00f0ff;
+      --text: #f5ecff;
+      --muted: #b9a6d6;
+      --line: rgba(255, 255, 255, 0.12);
+      --f-logo: "Permanent Marker", cursive;
+      --f-stamp: "Anton", Impact, sans-serif;
+      --f-hud: "Rajdhani", system-ui, sans-serif;
+      --f-num: "JetBrains Mono", ui-monospace, monospace;
+      --radius: 14px;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(120% 70% at 50% 0%, #2a0f3f 0%, var(--bg) 60%) fixed, var(--bg);
+      color: var(--text);
+      font: 500 18px/1.45 var(--f-hud);
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 60;
+      background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
+      animation: scan-drift 8s linear infinite;
+    }
+    @keyframes scan-drift { to { background-position: 0 120px; } }
+
+    .num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+
+    /* ---------- Header + horizon ---------- */
+    .site-header {
+      position: relative;
+      overflow: hidden;
+      padding: 26px 20px 118px;
+      text-align: center;
+      isolation: isolate;
+    }
+    .horizon { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+    .horizon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 30%, rgba(255, 42, 133, 0.16) 62%, rgba(255, 123, 0, 0.22) calc(100% - 92px), transparent calc(100% - 90px));
+    }
+    .sun {
+      position: absolute;
+      left: 50%;
+      bottom: 90px;
+      width: 200px;
+      height: 100px;
+      transform: translateX(-50%);
+      border-radius: 200px 200px 0 0;
+      background:
+        repeating-linear-gradient(to bottom, transparent 0 9px, var(--bg) 9px 13px) 0 100% / 100% 48% no-repeat,
+        linear-gradient(to bottom, var(--orange), var(--pink));
+      box-shadow: 0 0 60px rgba(255, 42, 133, 0.45);
+      opacity: 0.9;
+    }
+    .grid-floor {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 90px;
+      overflow: hidden;
+      perspective: 180px;
+      border-top: 2px solid var(--orange);
+      box-shadow: 0 -2px 18px rgba(255, 123, 0, 0.6);
+      -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
+      mask-image: linear-gradient(to bottom, #000 30%, transparent);
+    }
+    .grid-floor::before {
+      content: "";
+      position: absolute;
+      inset: -120% -60% 0;
+      background-image:
+        linear-gradient(rgba(255, 42, 133, 0.6) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.35) 2px, transparent 2px);
+      background-size: 40px 40px;
+      transform: rotateX(62deg);
+      transform-origin: 50% 100%;
+      animation: grid-run 1.6s linear infinite;
+    }
+    @keyframes grid-run { to { background-position: 0 40px; } }
+
+    .hud-tag {
+      margin: 0;
+      font: 500 12px var(--f-num);
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .logo {
+      margin: 10px 0 2px;
+      font: 400 clamp(36px, 11vw, 56px)/1.05 var(--f-logo);
+      color: #fff4fa;
+      text-shadow: 0 0 8px var(--pink), 0 0 26px rgba(255, 42, 133, 0.7);
+    }
+    .tagline {
+      margin: 0;
+      font: 700 15px var(--f-hud);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+    }
+
+    /* ---------- Layout ---------- */
+    main { width: 100%; max-width: 560px; margin: -64px auto 0; padding: 0 16px 32px; position: relative; }
+    .screen[hidden] { display: none; }
+
+    .screen-title {
+      margin: 0 0 4px;
+      font: 700 24px/1.1 var(--f-hud);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text);
+      text-shadow: 0 0 14px rgba(0, 240, 255, 0.45);
+      outline: none;
+    }
+    .screen-sub { margin: 0 0 20px; text-align: center; color: var(--muted); font-size: 16px; }
+
+    .step { margin: 0 0 22px; }
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      font: 700 15px var(--f-hud);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .step-num { font: 700 13px var(--f-num); color: var(--cyan); }
+
+    /* ---------- Dropdowns ---------- */
+    .fields { display: flex; flex-direction: column; gap: 18px; margin: 0 0 22px; }
+    .field-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 8px;
+      font: 700 15px var(--f-hud);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      min-height: 56px;
+      padding: 12px 48px 12px 14px;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f0ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center / 22px 22px,
+        var(--panel);
+      border: 1.5px solid rgba(255, 42, 133, 0.45);
+      border-radius: var(--radius);
+      color: var(--text);
+      font: 600 17px/1.25 var(--f-hud);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.15s var(--ease);
+    }
+    .select:hover { border-color: var(--pink); box-shadow: 0 0 0 1px var(--pink), 0 0 18px rgba(255, 42, 133, 0.35); }
+    .select:not(.is-set) { color: var(--muted); }
+    .select.is-set {
+      border-color: var(--cyan);
+      background-color: rgba(0, 240, 255, 0.08);
+      animation: sel-pulse 2.4s ease-in-out infinite;
+    }
+    .select.tap { animation: tap-pop 0.22s var(--ease); }
+    .select option,
+    .select optgroup {
+      background-color: #1a0b29;
+      color: var(--text);
+      font: 600 16px var(--f-hud);
+    }
+    .select optgroup { color: var(--cyan); font-weight: 700; }
+    .select option:disabled { color: var(--muted); }
+
+    @keyframes sel-pulse {
+      0%, 100% { box-shadow: 0 0 0 1px var(--cyan), 0 0 12px rgba(0, 240, 255, 0.3); }
+      50% { box-shadow: 0 0 0 1px var(--cyan), 0 0 24px rgba(0, 240, 255, 0.55); }
+    }
+    @keyframes tap-pop {
+      0% { transform: scale(1); }
+      40% { transform: scale(0.95); box-shadow: 0 0 0 2px var(--cyan), 0 0 30px rgba(0, 240, 255, 0.7); }
+      100% { transform: scale(1); }
+    }
+
+    :where(button, input, select):focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(0, 240, 255, 0.25), 0 0 22px rgba(0, 240, 255, 0.55);
+    }
+
+    /* ---------- Slider ---------- */
+    .slider-card {
+      padding: 16px;
+      background: var(--panel);
+      border: 1.5px solid rgba(255, 42, 133, 0.32);
+      border-radius: var(--radius);
+    }
+    .slider-label { display: block; font-weight: 600; font-size: 17px; line-height: 1.3; }
+    .slider-readout { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 12px 0 2px; }
+    .slider-value { font-size: 34px; font-weight: 700; color: var(--fill, var(--cyan)); text-shadow: 0 0 14px var(--fill, var(--cyan)); }
+    .copium-tag {
+      padding: 4px 10px;
+      border: 1.5px solid var(--fill, var(--cyan));
+      border-radius: 999px;
+      font: 700 14px var(--f-hud);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--fill, var(--cyan));
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .slider-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+    input[type="range"] {
+      --pct: 50%;
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 44px;
+      margin: 0;
+      background: transparent;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--fill) 0 var(--pct), rgba(255, 255, 255, 0.1) var(--pct) 100%);
+      box-shadow: 0 0 12px var(--fill-glow);
+    }
+    input[type="range"]::-moz-range-track {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(to right, var(--fill) 0 var(--pct), rgba(255, 255, 255, 0.1) var(--pct) 100%);
+      box-shadow: 0 0 12px var(--fill-glow);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 28px;
+      height: 28px;
+      margin-top: -9px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--fill);
+      box-shadow: 0 0 0 4px var(--fill-glow), 0 0 18px var(--fill);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--fill);
+      box-shadow: 0 0 0 4px var(--fill-glow), 0 0 18px var(--fill);
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 18px;
+      border: 2px solid var(--cyan);
+      border-radius: 12px;
+      background: rgba(0, 240, 255, 0.06);
+      color: var(--cyan);
+      font: 700 17px var(--f-hud);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: box-shadow 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.15s var(--ease), opacity 0.2s;
+    }
+    .btn:hover:enabled { background-color: rgba(0, 240, 255, 0.14); box-shadow: 0 0 20px rgba(0, 240, 255, 0.45); }
+    .btn:active:enabled { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary {
+      min-height: 64px;
+      border-color: transparent;
+      background: linear-gradient(90deg, var(--pink), var(--orange));
+      color: #14051c;
+      font-size: 19px;
+    }
+    .btn-primary:enabled { animation: cta-pulse 2.2s ease-in-out infinite; }
+    .btn-primary:hover:enabled { background: linear-gradient(90deg, #ff4b99, #ff8f24); box-shadow: 0 0 28px rgba(255, 42, 133, 0.7); }
+    .btn-primary:disabled { background: linear-gradient(90deg, #5a2142, #5a3416); color: #e6d6f0; }
+    @keyframes cta-pulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(255, 42, 133, 0.45), 0 0 0 0 rgba(255, 42, 133, 0.45); }
+      50% { box-shadow: 0 0 26px rgba(255, 123, 0, 0.65), 0 0 0 6px rgba(255, 42, 133, 0); }
+    }
+
+    .btn-pink { border-color: var(--pink); color: #ffd1e5; background: rgba(255, 42, 133, 0.1); }
+    .btn-pink:hover:enabled { background-color: rgba(255, 42, 133, 0.2); box-shadow: 0 0 20px rgba(255, 42, 133, 0.5); }
+    .btn-ghost { border-color: rgba(185, 166, 214, 0.5); color: var(--text); background: transparent; }
+    .btn-ghost:hover:enabled { background-color: rgba(255, 255, 255, 0.06); box-shadow: 0 0 16px rgba(185, 166, 214, 0.35); }
+
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      transform: scale(0);
+      pointer-events: none;
+      animation: ripple 0.5s ease-out forwards;
+    }
+    @keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+    .run-area { margin-top: 26px; }
+    .run-hint { margin: 10px 0 0; text-align: center; font-size: 15px; color: var(--muted); }
+    .run-hint .num { color: var(--cyan); }
+
+    /* ---------- Scan screen ---------- */
+    .terminal {
+      position: relative;
+      overflow: hidden;
+      padding: 22px 18px;
+      min-height: 280px;
+      background: rgba(10, 4, 18, 0.9);
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.18), inset 0 0 30px rgba(0, 240, 255, 0.06);
+    }
+    .terminal.shake { animation: shake 0.35s linear; }
+    .term-lines { list-style: none; margin: 18px 0 22px; padding: 0; min-height: 132px; }
+    .term-line {
+      width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      font: 500 15px/2.1 var(--f-num);
+      color: var(--cyan);
+      animation: type 0.3s steps(var(--chars)) forwards;
+    }
+    .term-line::before { content: "> "; color: var(--pink); }
+    .term-line:last-child:nth-child(4) { color: var(--orange); }
+    @keyframes type { to { width: calc((var(--chars) + 2) * 1ch); } }
+
+    .progress { height: 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--pink), var(--orange));
+      box-shadow: 0 0 14px var(--pink);
+    }
+    .progress-fill.run { width: 100%; transition: width 1.5s linear; }
+    .sweep {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -40%;
+      height: 40%;
+      background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.14), transparent);
+      animation: sweep 1.5s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes sweep { to { transform: translateY(350%); } }
+    @keyframes shake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-4px, 2px); }
+      40% { transform: translate(4px, -2px); }
+      60% { transform: translate(-3px, -1px); }
+      80% { transform: translate(3px, 1px); }
+    }
+
+    /* ---------- Result card ---------- */
+    .result-card {
+      position: relative;
+      padding: 20px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(42, 15, 63, 0.9), rgba(15, 7, 24, 0.94));
+      border: 1.5px solid rgba(255, 42, 133, 0.5);
+      box-shadow: 0 0 30px rgba(255, 42, 133, 0.2);
+    }
+    .result-card.shake { animation: shake 0.35s linear 0.32s; }
+    .stats, .facts { margin: 12px 0 0; }
+    .stats div, .facts div {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 14px;
+      padding: 9px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    dt { flex-shrink: 0; font: 700 13px var(--f-hud); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    dd { margin: 0; text-align: right; font-weight: 700; overflow-wrap: anywhere; }
+    .facts dd.num { font-size: 15px; font-weight: 500; }
+
+    .stamp-wrap { display: flex; justify-content: center; padding: 28px 6px 18px; }
+    .stamp {
+      margin: 0;
+      max-width: 100%;
+      padding: 10px 16px;
+      border: 4px solid var(--pink);
+      border-radius: 8px;
+      font: 400 clamp(30px, 9.5vw, 46px)/1.04 var(--f-stamp);
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff6fb;
+      overflow-wrap: anywhere;
+      text-shadow: 0 0 6px var(--pink), 0 0 18px var(--pink);
+      box-shadow: 0 0 18px rgba(255, 42, 133, 0.6), inset 0 0 18px rgba(255, 42, 133, 0.35);
+      transform: rotate(-4deg);
+    }
+    .stamp.slam { animation: slam 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
+    @keyframes slam {
+      0% { transform: rotate(-4deg) scale(2.6); opacity: 0; }
+      55% { transform: rotate(-4deg) scale(0.92); opacity: 1; }
+      78% { transform: rotate(-4deg) scale(1.04); }
+      100% { transform: rotate(-4deg) scale(1); }
+    }
+    .roast { margin: 0 0 18px; text-align: center; font-size: 17px; color: var(--text); }
+
+    .meter-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+    .meter-label { font: 700 14px var(--f-hud); letter-spacing: 0.16em; color: var(--cyan); }
+    .meter-score { font-weight: 700; color: var(--pink); text-shadow: 0 0 10px rgba(255, 42, 133, 0.6); }
+    .meter-track { height: 18px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); overflow: hidden; }
+    .meter-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--orange), var(--pink));
+      box-shadow: 0 0 16px var(--pink);
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.9s var(--ease);
+    }
+    .card-url { margin: 16px 0 0; text-align: center; font-size: 14px; color: var(--cyan); overflow-wrap: anywhere; }
+
+    .edit-btn { margin-top: 14px; }
+
+    .story { margin-top: 30px; }
+    .story-title { margin: 0 0 12px; font: 700 15px var(--f-hud); letter-spacing: 0.16em; text-transform: uppercase; text-align: center; color: var(--muted); }
+    #story-canvas {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      height: auto;
+      aspect-ratio: 9 / 16;
+      margin: 0 auto;
+      border-radius: 16px;
+      border: 1.5px solid rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.18);
+      background: var(--bg);
+    }
+    .share-actions { display: grid; gap: 12px; margin-top: 18px; }
+    .back-btn { margin-top: 22px; }
+
+    /* ---------- Footer + toast ---------- */
+    .site-footer { padding: 18px 20px 32px; text-align: center; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
+    .site-footer p { margin: 0; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 70;
+      max-width: calc(100% - 32px);
+      padding: 12px 18px;
+      border: 1.5px solid var(--cyan);
+      border-radius: 12px;
+      background: rgba(10, 4, 18, 0.95);
+      color: var(--text);
+      font: 700 16px var(--f-hud);
+      letter-spacing: 0.04em;
+      text-align: center;
+      box-shadow: 0 0 22px rgba(0, 240, 255, 0.5);
+      opacity: 0;
+      transform: translate(-50%, 16px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (min-width: 640px) {
+      .site-header { padding-top: 40px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::after,
+      .grid-floor::before,
+      .sweep,
+      .select.is-set,
+      .select.tap,
+      .btn-primary:enabled,
+      .terminal.shake,
+      .result-card.shake,
+      .stamp.slam { animation: none; }
+      .term-line { animation: none; width: auto; }
+      .meter-fill { transition: none; }
+      .ripple { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="horizon" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="grid-floor"></div>
+    </div>
+    <p class="hud-tag">// Social Club Diagnostics v6.0</p>
+    <h1 class="logo" id="app-name">Can I Play GTA 6?</h1>
+    <p class="tagline">Reality &amp; PC Cope Simulator</p>
+  </header>
+
+  <main id="app">
+    <!-- SCREEN 1: inputs -->
+    <section class="screen" id="screen-input" aria-labelledby="input-title">
+      <h2 class="screen-title" id="input-title" tabindex="-1">Leonida Eligibility Scan</h2>
+      <p class="screen-sub">Four dropdowns. One slider. Maximum emotional damage.</p>
+
+      <div class="fields">
+        <div class="field">
+          <label class="field-label" for="sel-hardware"><span class="step-num">01</span> // Hardware</label>
+          <select class="select" id="sel-hardware" data-field="hardware" required></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="sel-budget"><span class="step-num">02</span> // Bank Balance &amp; Financial Reality</label>
+          <select class="select" id="sel-budget" data-field="budget" required></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="sel-network"><span class="step-num">03</span> // Storage &amp; Internet Situation</label>
+          <select class="select" id="sel-network" data-field="network" required></select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="sel-life"><span class="step-num">04</span> // Current Life &amp; Academic Status</label>
+          <select class="select" id="sel-life" data-field="life" required></select>
+        </div>
+      </div>
+
+      <section class="step" aria-labelledby="step-copium">
+        <h3 class="step-title" id="step-copium"><span class="step-num">05</span> // Copium Strategy</h3>
+        <div class="slider-card" id="slider-card">
+          <label class="slider-label" for="copium">How hard are you convincing yourself the PC port drops in <span id="pc-release"></span>?</label>
+          <div class="slider-readout">
+            <output class="slider-value num" id="copium-value" for="copium">50.0%</output>
+            <span class="copium-tag" id="copium-label">Hopeful</span>
+          </div>
+          <input type="range" id="copium" min="0" max="100" step="0.1" value="50">
+          <div class="slider-scale num" aria-hidden="true"><span>0%</span><span>50%</span><span>100%</span></div>
+        </div>
+      </section>
+
+      <div class="run-area">
+        <button type="button" class="btn btn-primary" id="run-btn" aria-describedby="run-hint" disabled>Run Rockstar Reality Check</button>
+        <p class="run-hint" id="run-hint" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- SCREEN 2a: scan -->
+    <section class="screen" id="screen-scan" aria-labelledby="scan-title" hidden>
+      <div class="terminal" id="terminal">
+        <div class="sweep" aria-hidden="true"></div>
+        <h2 class="screen-title" id="scan-title" tabindex="-1">Running Reality Check</h2>
+        <ol class="term-lines" id="term-lines" aria-live="polite"></ol>
+        <div class="progress" id="scan-progress" role="progressbar" aria-label="Scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2b + 3: result, story card, share -->
+    <section class="screen" id="screen-result" aria-labelledby="result-title" hidden>
+      <h2 class="screen-title" id="result-title" tabindex="-1">Diagnosis Complete</h2>
+      <p class="screen-sub">The Social Club has spoken.</p>
+
+      <article class="result-card" id="result-card" aria-labelledby="r-verdict">
+        <p class="hud-tag">// Leonida Eligibility Report</p>
+        <dl class="stats">
+          <div><dt>Hardware</dt><dd id="r-hardware"></dd></div>
+          <div><dt>Bank Balance</dt><dd id="r-budget"></dd></div>
+          <div><dt>Internet</dt><dd id="r-network"></dd></div>
+          <div><dt>Life Status</dt><dd id="r-life"></dd></div>
+          <div><dt>Copium Level</dt><dd class="num" id="r-copium"></dd></div>
+        </dl>
+        <div class="stamp-wrap"><p class="stamp" id="r-verdict"></p></div>
+        <p class="roast" id="r-roast"></p>
+        <div class="meter">
+          <div class="meter-head">
+            <span class="meter-label">COPE-O-METER</span>
+            <span class="meter-score num"><span id="r-score">0.0</span>% <span id="r-score-label"></span></span>
+          </div>
+          <div class="meter-track" id="r-meter" role="meter" aria-label="Cope-O-Meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="meter-fill" id="r-meter-fill"></div>
+          </div>
+        </div>
+        <dl class="facts">
+          <div><dt>Storage Needed</dt><dd class="num" id="r-storage"></dd></div>
+          <div><dt>Download ETA</dt><dd class="num" id="r-download"></dd></div>
+          <div><dt>Est. Playable Date</dt><dd class="num" id="r-date"></dd></div>
+        </dl>
+        <p class="card-url num" id="r-url"></p>
+      </article>
+
+      <button type="button" class="btn btn-ghost edit-btn" id="edit-btn">Edit inputs</button>
+
+      <section class="story" aria-labelledby="story-title">
+        <h3 class="story-title" id="story-title">Your 9:16 Story Card</h3>
+        <canvas id="story-canvas" width="1080" height="1920" role="img" aria-label="GTA 6 reality check story card"></canvas>
+        <div class="share-actions">
+          <button type="button" class="btn btn-primary" id="download-btn" disabled>Download 9:16 Story Card</button>
+          <button type="button" class="btn btn-pink" id="share-btn">Challenge a Friend</button>
+        </div>
+      </section>
+
+      <button type="button" class="btn btn-ghost back-btn" id="back-btn">Back to start</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p id="disclaimer">Unofficial fan parody. Not affiliated with Rockstar Games or Take-Two.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    "use strict";
+
+    /* =========================================================
+       CONFIG — edit these before launch
+       ========================================================= */
+    const CONFIG = {
+      APP_NAME: "Can I Play GTA 6?",
+      FOOTER_URL: "[YOUR_LINK].embarko.app",   // replace after deploy
+      STORAGE_GB: 212,                         // VERIFY before launch — must be confirmed against official specs
+      PC_RELEASE_GUESS: "Q1 2027",             // VERIFY before launch — placeholder only, not an announced date
+      CONSOLE_PLAYABLE: "Today at 12:00 AM (if you skip tomorrow's 8 AM lecture)",  // VERIFY before launch — assumes the console version is already out
+      PC_PLAYABLE_NOTE: "November 2028 (after 3 Steam sales)",  // VERIFY before launch — joke line with a made-up year, not a real date
+    };
+
+    /* =========================================================
+       DATA — dropdown options and copy
+       Each option: { value, label, group? }. Dropdowns are built from these arrays.
+       ========================================================= */
+    const HARDWARE = [
+      { value: "ps5_pro", label: "PS5 Pro (4K Ray-Tracing Flex)", group: "Consoles (The Chosen Ones)", isConsole: true },
+      { value: "ps5_std", label: "PS5 / PS5 Slim (Disc or Digital)", group: "Consoles (The Chosen Ones)", isConsole: true },
+      { value: "xbox_sx", label: "Xbox Series X (1TB Fridge)", group: "Consoles (The Chosen Ones)", isConsole: true },
+      { value: "xbox_ss", label: "Xbox Series S (512GB Storage Struggle — 212GB hurts)", group: "Consoles (The Chosen Ones)", isConsole: true },
+      { value: "ps4_xb1", label: "PS4 / Xbox One (Last-Gen Relic)", group: "Consoles (The Chosen Ones)" },
+      { value: "pc_god", label: "RTX 4090 / 5080 / 5090 Monster Rig (₹2.5L+ Paperweight)", group: "Gaming PCs & Laptops (The Copium Ward)" },
+      { value: "pc_mid_high", label: "RTX 4060 / 4070 / RX 7700 XT (Solid 1440p, Zero Game)", group: "Gaming PCs & Laptops (The Copium Ward)" },
+      { value: "pc_budget", label: "RTX 3050 / RTX 2050 / GTX 1650 (College Hostel Starter Pack)", group: "Gaming PCs & Laptops (The Copium Ward)" },
+      { value: "pc_ancient", label: "GTX 1050 Ti / GT 710 / MX130 (Praying for FSR Ultra Performance)", group: "Gaming PCs & Laptops (The Copium Ward)" },
+      { value: "pc_igpu", label: "Intel Iris Xe / UHD Graphics / Ryzen Vega (Integrated GPU Survivor)", group: "Gaming PCs & Laptops (The Copium Ward)" },
+      { value: "macbook", label: "MacBook Air / Pro (M1/M2/M3/M4 — \"Is it on App Store?\")", group: "Non-Gaming / Portable Devices" },
+      { value: "handheld", label: "Steam Deck / ROG Ally / Nintendo Switch", group: "Non-Gaming / Portable Devices" },
+      { value: "mobile", label: "Android / iPhone Only (Waiting for APK OBB 50MB compressed)", group: "Non-Gaming / Portable Devices" },
+    ];
+
+    const BUDGET = [
+      { value: "broke_0", label: "₹0 – ₹199 (Canteen Chai & Maggi Deficit)" },
+      { value: "broke_1500", label: "₹500 – ₹2,000 (Enough for 10 hrs at a Gaming Cafe)" },
+      { value: "game_only", label: "₹5,999 – ₹7,499 (Can afford Standard/Ultimate Edition, no console)" },
+      { value: "emi_warrior", label: "₹10,000+ with a No-Cost EMI Card (Living dangerously)" },
+      { value: "ps5_ready", label: "₹55,000 – ₹75,000 (Can buy PS5 Slim + Game today)" },
+      { value: "rich_kid", label: "₹1,50,000+ (Dad's Credit Card / Tech Bro Salary)" },
+    ];
+
+    const NETWORK = [
+      { value: "net_god", label: "300 Mbps Fiber + 1TB Free SSD", mbps: 300, dailyCapGB: null },
+      { value: "net_avg", label: "40 Mbps Wi-Fi + Deleting 4 Games to fit 212GB", mbps: 40, dailyCapGB: null },
+      { value: "net_jio", label: "Mobile Data 2GB/day Limit", mbps: 5, dailyCapGB: 2 },
+      { value: "net_hostel", label: "College Hostel Wi-Fi (Steam & PSN blocked by firewall)", mbps: 10, dailyCapGB: null },
+    ];
+
+    const LIFE = [
+      { value: "exams_now", label: "End-Sem Exams / Viva / Submissions This Week" },
+      { value: "attendance_low", label: "Attendance at 68% (One bunk away from detention)" },
+      { value: "unemployed", label: "Final Year / Unemployed (\"Building side projects\")" },
+      { value: "corporate", label: "9-to-6 Corporate Slave (Money exists, energy does not)" },
+      { value: "free_soul", label: "Zero Responsibilities (Pure Leonida gremlin mode)" },
+    ];
+
+    const FIELDS = { hardware: HARDWARE, budget: BUDGET, network: NETWORK, life: LIFE };
+    const REQUIRED_FIELDS = Object.keys(FIELDS);
+    const PLACEHOLDER_LABEL = "— Select —";
+
+    const COPIUM_LEVELS = [
+      { below: 30, label: "Realist" },
+      { below: 70, label: "Hopeful" },
+      { below: Infinity, label: "Pure Copium" },
+    ];
+
+    const COPIUM_MODIFIERS = [
+      { test: (v) => v >= 90, text: " Your copium level is off the charts." },
+      { test: (v) => v <= 10, text: " Your realism is suspicious." },
+    ];
+
+    const SCAN_STEPS = [
+      "Checking Rockstar Launcher...",
+      "Scanning bank account...",
+      "Measuring Copium levels...",
+      "Verdict locked.",
+    ];
+
+    const COPY = {
+      shareTitle: `${CONFIG.APP_NAME} — Reality & PC Cope Simulator`,
+      shareText: (cope) => `I just got diagnosed with ${cope}% GTA 6 Copium 💀 Check if you can actually play it: ${CONFIG.FOOTER_URL}`,
+      toastCopied: "Copied. Paste it into WhatsApp.",
+      toastCopyFailed: "Couldn't copy. Long-press to share instead.",
+      hintRemaining: (done, total) => `${done}/${total} dropdowns locked. Pick hardware, budget, internet, and life status.`,
+      hintReady: (total) => `${total}/${total} locked. Ready to face reality.`,
+      disclaimer: "Unofficial fan parody. Not affiliated with Rockstar Games or Take-Two.",
+      downloadName: "gta6-reality-check.png",
+    };
+
+    const SCAN_DURATION_MS = 1500;
+    const DEFAULT_COPIUM = 50;
+    const COLOR = { bg: "#0f0718", pink: "#ff2a85", orange: "#ff7b00", cyan: "#00f0ff", text: "#f5ecff", muted: "#b9a6d6" };
+
+    /* =========================================================
+       STATE
+       ========================================================= */
+    const state = { hardware: null, budget: null, network: null, life: null, copium: DEFAULT_COPIUM };
+    let currentResult = null;
+    let scanTimers = [];
+    let drawToken = 0;
+    let toastTimer = 0;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const $ = (id) => document.getElementById(id);
+    const el = {
+      screens: { input: $("screen-input"), scan: $("screen-scan"), result: $("screen-result") },
+      titles: { input: $("input-title"), scan: $("scan-title"), result: $("result-title") },
+      selects: document.querySelectorAll("select[data-field]"),
+      slider: $("copium"),
+      sliderCard: $("slider-card"),
+      copiumValue: $("copium-value"),
+      copiumLabel: $("copium-label"),
+      runBtn: $("run-btn"),
+      runHint: $("run-hint"),
+      terminal: $("terminal"),
+      termLines: $("term-lines"),
+      scanProgress: $("scan-progress"),
+      progressFill: $("progress-fill"),
+      resultCard: $("result-card"),
+      verdict: $("r-verdict"),
+      meter: $("r-meter"),
+      meterFill: $("r-meter-fill"),
+      score: $("r-score"),
+      canvas: $("story-canvas"),
+      downloadBtn: $("download-btn"),
+      toast: $("toast"),
+    };
+
+    /* =========================================================
+       VERDICT ENGINE
+       ========================================================= */
+    function getOption(field, value) {
+      return FIELDS[field].find((option) => option.value === value);
+    }
+
+    const isConsole = (s) => Boolean(getOption("hardware", s.hardware)?.isConsole);
+    const isExamOrLowAttendance = (s) => s.life === "exams_now" || s.life === "attendance_low";
+    const isUnder5999 = (s) => s.budget === "broke_0" || s.budget === "broke_1500";
+    const hardwareIn = (s, ...values) => values.includes(s.hardware);
+
+    // Ordered rule list: the first rule whose match() passes wins.
+    // `line` can be a string or a function of state for per-input variations.
+    const VERDICTS = [
+      {
+        id: "storage_executioner",
+        match: (s) => s.hardware === "xbox_ss",
+        stamp: "STORAGE EXECUTIONER",
+        line: "Your 512GB Series S only has 364GB usable. Installing GTA 6's 212GB means deleting every other game, your OS, and your childhood memories.", // VERIFY before launch — usable storage and install size
+      },
+      {
+        id: "academic_ruin_funded",
+        match: (s) => isConsole(s) && isExamOrLowAttendance(s) && !isUnder5999(s),
+        stamp: "ACADEMIC RUIN IMMINENT",
+        line: "You have the console and the ₹5,999, but your attendance is in the red. Skipping tomorrow's 8 AM lecture for Vice City will cost you a semester.",
+      },
+      {
+        id: "academic_ruin_broke",
+        match: (s) => isConsole(s) && isExamOrLowAttendance(s),
+        stamp: "ACADEMIC RUIN IMMINENT",
+        line: "Your attendance is already in the red, and the PlayStation Store is your only ticket to Vice City. Good luck explaining that to your parents.",
+      },
+      {
+        id: "digital_paperweight",
+        match: (s) => isConsole(s) && isUnder5999(s),
+        stamp: "₹5,999 DIGITAL PAPERWEIGHT",
+        line: "Imagine owning a next-gen console and staring at the PlayStation Store checkout screen with ₹420 in UPI. Borrow from your roommate immediately.",
+      },
+      {
+        id: "lakh_youtube",
+        match: (s) => s.hardware === "pc_god",
+        stamp: "₹2.5 LAKH YOUTUBE PLAYER",
+        line: "You spent ₹2.5 lakh on a ray-tracing monster just to watch PS5 players spoil the entire ending in 1080p while Rockstar ignores Windows until 2027/2028.", // VERIFY before launch — release years are a guess
+      },
+      {
+        id: "thermal_throttle",
+        match: (s) => s.hardware === "pc_budget",
+        stamp: "THERMAL THROTTLE BOMB",
+        line: "Even if the PC port dropped tomorrow, 4GB VRAM would turn Vice City into a PowerPoint presentation and fry eggs on your WASD keys.",
+      },
+      {
+        id: "cope_pilot",
+        match: (s) => s.hardware === "pc_mid_high",
+        stamp: "1440P COPE PILOT",
+        line: "Your rig can run anything on PC, which is exactly why you're refreshing the Rockstar newsroom every morning instead of playing something.",
+      },
+      {
+        id: "walkthrough_warrior",
+        match: (s) => hardwareIn(s, "pc_igpu", "pc_ancient", "macbook", "handheld"),
+        stamp: "480P WALKTHROUGH WARRIOR",
+        line: (s) => s.hardware === "handheld"
+          ? "Your Steam Deck can run Elden Ring at 30 FPS, but Vice City is a PC-only dream for now. Your only playable edition is a YouTube walkthrough."
+          : "Your GPU struggles to render Chrome tabs. Your only playable edition is 'GTA 6 Full Gameplay No Commentary [4K 60FPS]' on YouTube.",
+      },
+      {
+        id: "museum_artifact",
+        match: (s) => s.hardware === "ps4_xb1",
+        stamp: "MUSEUM ARTIFACT DETECTED",
+        line: "Your console is 13 years old—almost as old as GTA 5. Launching GTA 6 on a PS4 would turn its cooling fan into a Boeing 747 turbine.", // VERIFY before launch — age claim depends on the current year
+      },
+      {
+        id: "fake_apk",
+        match: (s) => s.hardware === "mobile",
+        stamp: "FAKE APK VICTIM",
+        line: "Rockstar didn't release it on PC, let alone Android. Stop searching 'GTA 6 MediaFire 200MB highly compressed' before you get ransomware.",
+      },
+      {
+        id: "impulse_buyer",
+        match: (s) => !isConsole(s) && (s.budget === "emi_warrior" || s.budget === "ps5_ready"),
+        stamp: "IMPULSE PS5 BUYER",
+        line: "Your bank account is begging you not to swipe ₹65k for a PS5 Slim + ₹5,999 game just to play one title—and you're about to ignore it anyway.", // VERIFY before launch — console and game prices
+      },
+      {
+        id: "fallback",
+        match: () => true,
+        stamp: "BUY THE CONSOLE, SKIP THE COPE",
+        line: "Your wallet has options. Your hardware has options. The only thing you don't have is an excuse.",
+      },
+    ];
+
+    function getCopiumLabel(value) {
+      return COPIUM_LEVELS.find((level) => value < level.below).label;
+    }
+
+    function computeVerdict(s) {
+      const rule = VERDICTS.find((candidate) => candidate.match(s));
+      const base = typeof rule.line === "function" ? rule.line(s) : rule.line;
+      const modifier = COPIUM_MODIFIERS.find((m) => m.test(s.copium));
+      return { id: rule.id, stamp: rule.stamp, line: modifier ? base + modifier.text : base };
+    }
+
+    function estimateDownload(network) {
+      if (network.dailyCapGB) {
+        return `${Math.ceil(CONFIG.STORAGE_GB / network.dailyCapGB)} days`;
+      }
+      const hours = (CONFIG.STORAGE_GB * 8000) / network.mbps / 3600;
+      return hours < 1 ? `~${Math.round(hours * 60)} mins` : `~${hours.toFixed(1)} hrs`;
+    }
+
+    function isReady() {
+      return REQUIRED_FIELDS.every((field) => Boolean(state[field]));
+    }
+
+    function buildResult() {
+      const hardware = getOption("hardware", state.hardware);
+      const network = getOption("network", state.network);
+      return {
+        hardware,
+        budget: getOption("budget", state.budget),
+        network,
+        life: getOption("life", state.life),
+        score: Number(state.copium.toFixed(1)),
+        cope: state.copium.toFixed(1),
+        copeLabel: getCopiumLabel(state.copium),
+        verdict: computeVerdict(state),
+        storage: `${CONFIG.STORAGE_GB} GB`,
+        download: estimateDownload(network),
+        playable: hardware.isConsole ? CONFIG.CONSOLE_PLAYABLE : CONFIG.PC_PLAYABLE_NOTE,
+      };
+    }
+
+    /* =========================================================
+       UI RENDER
+       ========================================================= */
+    function renderSelects() {
+      el.selects.forEach((select) => {
+        const placeholder = new Option(PLACEHOLDER_LABEL, "", true, true);
+        placeholder.disabled = true;
+        const nodes = [placeholder];
+        const groups = new Map();
+        FIELDS[select.dataset.field].forEach((item) => {
+          const option = new Option(item.label, item.value);
+          if (!item.group) {
+            nodes.push(option);
+            return;
+          }
+          if (!groups.has(item.group)) {
+            const optgroup = document.createElement("optgroup");
+            optgroup.label = item.group;
+            groups.set(item.group, optgroup);
+            nodes.push(optgroup);
+          }
+          groups.get(item.group).append(option);
+        });
+        select.replaceChildren(...nodes);
+      });
+    }
+
+    function syncSelects() {
+      el.selects.forEach((select) => {
+        const value = state[select.dataset.field];
+        if (value) select.value = value;
+        else select.selectedIndex = 0;
+        select.classList.toggle("is-set", Boolean(value));
+      });
+    }
+
+    function onSelectChange(select) {
+      state[select.dataset.field] = select.value || null;
+      syncSelects();
+      select.classList.remove("tap");
+      void select.offsetWidth;
+      select.classList.add("tap");
+      updateRunButton();
+    }
+
+    function mixColor(from, to, t) {
+      return from.map((c, i) => Math.round(c + (to[i] - c) * t));
+    }
+
+    function updateSlider() {
+      const value = state.copium;
+      const [r, g, b] = mixColor([0, 240, 255], [255, 42, 133], value / 100);
+      const fill = `rgb(${r}, ${g}, ${b})`;
+      const glow = `rgba(${r}, ${g}, ${b}, 0.35)`;
+      el.slider.value = String(value);
+      el.slider.style.setProperty("--pct", `${value}%`);
+      [el.slider, el.sliderCard].forEach((node) => {
+        node.style.setProperty("--fill", fill);
+        node.style.setProperty("--fill-glow", glow);
+      });
+      const label = getCopiumLabel(value);
+      el.copiumValue.textContent = `${value.toFixed(1)}%`;
+      el.copiumLabel.textContent = label;
+      el.slider.setAttribute("aria-valuetext", `${value.toFixed(1)} percent, ${label}`);
+    }
+
+    function updateRunButton() {
+      const total = REQUIRED_FIELDS.length;
+      const done = REQUIRED_FIELDS.filter((key) => state[key]).length;
+      el.runBtn.disabled = !isReady();
+      el.runHint.textContent = isReady() ? COPY.hintReady(total) : COPY.hintRemaining(done, total);
+    }
+
+    function showScreen(name) {
+      Object.entries(el.screens).forEach(([key, screen]) => { screen.hidden = key !== name; });
+      el.titles[name].focus({ preventScroll: true });
+      const behavior = reduceMotion.matches ? "auto" : "smooth";
+      if (name === "input") window.scrollTo({ top: 0, behavior });
+      else $("app").scrollIntoView({ behavior, block: "start" });
+    }
+
+    function clearScanTimers() {
+      scanTimers.forEach(clearTimeout);
+      scanTimers = [];
+    }
+
+    function runScan() {
+      if (!isReady()) return;
+      clearScanTimers();
+      el.termLines.replaceChildren();
+      el.terminal.classList.remove("shake");
+      el.progressFill.classList.remove("run");
+      el.scanProgress.setAttribute("aria-valuenow", "0");
+      showScreen("scan");
+      void el.progressFill.offsetWidth;
+      el.progressFill.classList.add("run");
+
+      const stepMs = SCAN_DURATION_MS / SCAN_STEPS.length;
+      SCAN_STEPS.forEach((text, i) => {
+        scanTimers.push(setTimeout(() => {
+          const line = document.createElement("li");
+          line.className = "term-line";
+          line.style.setProperty("--chars", String(text.length));
+          line.textContent = text;
+          el.termLines.append(line);
+          el.scanProgress.setAttribute("aria-valuenow", String(Math.round(((i + 1) / SCAN_STEPS.length) * 100)));
+          if (i === SCAN_STEPS.length - 1) el.terminal.classList.add("shake");
+        }, i * stepMs));
+      });
+
+      scanTimers.push(setTimeout(() => {
+        currentResult = buildResult();
+        showScreen("result");
+        renderResult(currentResult);
+      }, SCAN_DURATION_MS));
+    }
+
+    function renderResult(result) {
+      $("r-hardware").textContent = result.hardware.label;
+      $("r-budget").textContent = result.budget.label;
+      $("r-network").textContent = result.network.label;
+      $("r-life").textContent = result.life.label;
+      $("r-copium").textContent = `${result.cope}% · ${result.copeLabel}`;
+      $("r-roast").textContent = result.verdict.line;
+      $("r-score-label").textContent = result.copeLabel.toUpperCase();
+      $("r-storage").textContent = result.storage;
+      $("r-download").textContent = result.download;
+      $("r-date").textContent = result.playable;
+      $("r-url").textContent = CONFIG.FOOTER_URL;
+
+      el.verdict.textContent = result.verdict.stamp;
+      el.verdict.classList.remove("slam");
+      el.resultCard.classList.remove("shake");
+      void el.verdict.offsetWidth;
+      el.verdict.classList.add("slam");
+      el.resultCard.classList.add("shake");
+
+      animateMeter(result.score);
+      drawStoryCard(result);
+    }
+
+    function animateMeter(score) {
+      el.meter.setAttribute("aria-valuenow", String(score));
+      el.meter.setAttribute("aria-valuetext", `${score.toFixed(1)} percent`);
+      el.meterFill.style.clipPath = "inset(0 100% 0 0)";
+      void el.meterFill.offsetWidth;
+      el.meterFill.style.clipPath = `inset(0 ${100 - score}% 0 0)`;
+
+      if (reduceMotion.matches) {
+        el.score.textContent = score.toFixed(1);
+        return;
+      }
+      const start = performance.now();
+      const duration = 900;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.score.textContent = (score * eased).toFixed(1);
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    function resetAll() {
+      clearScanTimers();
+      Object.assign(state, { hardware: null, budget: null, network: null, life: null, copium: DEFAULT_COPIUM });
+      currentResult = null;
+      syncSelects();
+      updateSlider();
+      updateRunButton();
+      showScreen("input");
+    }
+
+    /* =========================================================
+       CANVAS RENDER (1080 × 1920 story card)
+       ========================================================= */
+    const CANVAS = {
+      W: 1080, H: 1920,
+      HORIZON: 470, FLOOR_END: 720,
+      PANEL_TOP: 560, PANEL_X: 70, PANEL_W: 940,
+      CONTENT_X: 120, CONTENT_W: 840,
+      FOOTER_SPACE: 180,
+      STAMP_ANGLE: (-4 * Math.PI) / 180,
+    };
+    const FAMILY = {
+      logo: '"Permanent Marker", cursive',
+      stamp: 'Anton, Impact, sans-serif',
+      hud: 'Rajdhani, sans-serif',
+      num: '"JetBrains Mono", monospace',
+    };
+    const FONT_SPECS = [
+      '400 110px "Permanent Marker"',
+      '400 110px "Anton"',
+      '500 36px "Rajdhani"',
+      '600 36px "Rajdhani"',
+      '700 36px "Rajdhani"',
+      '500 32px "JetBrains Mono"',
+      '700 32px "JetBrains Mono"',
+    ];
+    const fontsReady = Promise.all(FONT_SPECS.map((spec) => document.fonts.load(spec, "Aa0%₹")))
+      .catch(() => [])
+      .then(() => document.fonts.ready);
+
+    function setFont(ctx, weight, size, family, spacing = "0px") {
+      ctx.font = `${weight} ${size}px ${family}`;
+      if ("letterSpacing" in ctx) ctx.letterSpacing = spacing;
+    }
+
+    function wrapLines(ctx, text, maxWidth) {
+      const words = String(text).split(/\s+/).filter(Boolean);
+      const lines = [];
+      let line = "";
+      for (const word of words) {
+        const candidate = line ? `${line} ${word}` : word;
+        if (ctx.measureText(candidate).width <= maxWidth) { line = candidate; continue; }
+        if (line) lines.push(line);
+        if (ctx.measureText(word).width <= maxWidth) { line = word; continue; }
+        let chunk = "";
+        for (const ch of word) {
+          if (chunk && ctx.measureText(chunk + ch).width > maxWidth) { lines.push(chunk); chunk = ch; }
+          else chunk += ch;
+        }
+        line = chunk;
+      }
+      if (line) lines.push(line);
+      return lines.length ? lines : [""];
+    }
+
+    function roundRectPath(ctx, x, y, w, h, r) {
+      const radius = Math.min(r, w / 2, h / 2);
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.arcTo(x + w, y, x + w, y + h, radius);
+      ctx.arcTo(x + w, y + h, x, y + h, radius);
+      ctx.arcTo(x, y + h, x, y, radius);
+      ctx.arcTo(x, y, x + w, y, radius);
+      ctx.closePath();
+    }
+
+    function glowText(ctx, text, x, y, color, glow, blur) {
+      ctx.save();
+      ctx.fillStyle = color;
+      ctx.shadowColor = glow;
+      ctx.shadowBlur = blur;
+      ctx.fillText(text, x, y);
+      ctx.fillText(text, x, y);
+      ctx.restore();
+    }
+
+    function drawBackground(ctx) {
+      const { W, H, HORIZON, FLOOR_END } = CANVAS;
+      const cx = W / 2;
+      ctx.fillStyle = COLOR.bg;
+      ctx.fillRect(0, 0, W, H);
+
+      const sky = ctx.createLinearGradient(0, 0, 0, HORIZON);
+      sky.addColorStop(0, COLOR.bg);
+      sky.addColorStop(0.5, "#2b0b3f");
+      sky.addColorStop(0.82, "#7a1656");
+      sky.addColorStop(1, "#c2235f");
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, W, HORIZON);
+
+      const sunR = 180;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, W, HORIZON);
+      ctx.clip();
+      const sun = ctx.createLinearGradient(0, HORIZON - sunR, 0, HORIZON);
+      sun.addColorStop(0, COLOR.orange);
+      sun.addColorStop(1, COLOR.pink);
+      ctx.shadowColor = COLOR.pink;
+      ctx.shadowBlur = 80;
+      ctx.fillStyle = sun;
+      ctx.beginPath();
+      ctx.arc(cx, HORIZON, sunR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = sky;
+      for (let i = 0; i < 6; i++) {
+        const h = 14 - i * 2;
+        const y = HORIZON - 10 - i * 26;
+        ctx.fillRect(cx - sunR, y - h, sunR * 2, h);
+      }
+      ctx.restore();
+
+      const floorH = FLOOR_END - HORIZON;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, HORIZON, W, floorH);
+      ctx.clip();
+      ctx.fillStyle = "#1f0930";
+      ctx.fillRect(0, HORIZON, W, floorH);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255, 42, 133, 0.6)";
+      for (let i = 1; i <= 9; i++) {
+        const t = i / 9;
+        const y = HORIZON + floorH * t * t;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(W, y);
+        ctx.stroke();
+      }
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.35)";
+      for (let i = -12; i <= 12; i++) {
+        ctx.beginPath();
+        ctx.moveTo(cx + i * 30, HORIZON);
+        ctx.lineTo(cx + i * 260, FLOOR_END);
+        ctx.stroke();
+      }
+      const fade = ctx.createLinearGradient(0, HORIZON, 0, FLOOR_END);
+      fade.addColorStop(0, "rgba(15, 7, 24, 0)");
+      fade.addColorStop(1, "rgba(15, 7, 24, 1)");
+      ctx.fillStyle = fade;
+      ctx.fillRect(0, HORIZON, W, floorH);
+      ctx.restore();
+
+      ctx.save();
+      ctx.shadowColor = COLOR.orange;
+      ctx.shadowBlur = 24;
+      ctx.fillStyle = COLOR.orange;
+      ctx.fillRect(0, HORIZON - 2, W, 4);
+      ctx.restore();
+
+      const ambient = ctx.createRadialGradient(cx, HORIZON, 40, cx, HORIZON, 1000);
+      ambient.addColorStop(0, "rgba(255, 42, 133, 0.18)");
+      ambient.addColorStop(1, "rgba(255, 42, 133, 0)");
+      ctx.fillStyle = ambient;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.025)";
+      for (let y = 0; y < H; y += 6) ctx.fillRect(0, y, W, 2);
+    }
+
+    function drawHeader(ctx) {
+      const { W } = CANVAS;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "alphabetic";
+
+      setFont(ctx, 500, 26, FAMILY.num, "4px");
+      ctx.fillStyle = COLOR.muted;
+      ctx.fillText("// SOCIAL CLUB DIAGNOSTICS", W / 2, 96);
+
+      let size = 112;
+      setFont(ctx, 400, size, FAMILY.logo);
+      while (ctx.measureText(CONFIG.APP_NAME).width > W - 140 && size > 56) {
+        size -= 4;
+        setFont(ctx, 400, size, FAMILY.logo);
+      }
+      glowText(ctx, CONFIG.APP_NAME, W / 2, 214, "#fff4fa", COLOR.pink, 30);
+
+      setFont(ctx, 700, 40, FAMILY.hud, "8px");
+      glowText(ctx, "REALITY & PC COPE SIMULATOR", W / 2, 284, COLOR.cyan, COLOR.cyan, 16);
+    }
+
+    function fitStamp(ctx, text) {
+      let fit = null;
+      for (let size = 112; size >= 56; size -= 4) {
+        setFont(ctx, 400, size, FAMILY.stamp, "1px");
+        const lines = wrapLines(ctx, text, 720);
+        const width = Math.max(...lines.map((line) => ctx.measureText(line).width));
+        fit = { size, lines, width };
+        if (lines.length <= 3) break;
+      }
+      return fit;
+    }
+
+    function drawStamp(ctx, stamp, cx, cy, boxW, boxH, lineH) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(CANVAS.STAMP_ANGLE);
+      roundRectPath(ctx, -boxW / 2, -boxH / 2, boxW, boxH, 16);
+      ctx.fillStyle = "rgba(255, 42, 133, 0.1)";
+      ctx.fill();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = COLOR.pink;
+      ctx.shadowColor = COLOR.pink;
+      ctx.shadowBlur = 30;
+      ctx.stroke();
+
+      setFont(ctx, 400, stamp.size, FAMILY.stamp, "1px");
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.lineJoin = "round";
+      const startY = -((stamp.lines.length - 1) * lineH) / 2;
+      stamp.lines.forEach((line, i) => {
+        const y = startY + i * lineH;
+        ctx.shadowColor = COLOR.pink;
+        ctx.shadowBlur = 24;
+        ctx.lineWidth = 6;
+        ctx.strokeStyle = COLOR.pink;
+        ctx.strokeText(line, 0, y);
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = "#fff6fb";
+        ctx.fillText(line, 0, y);
+      });
+      ctx.restore();
+    }
+
+    function drawMeter(ctx, x, y, width, score) {
+      const height = 40;
+      ctx.save();
+      roundRectPath(ctx, x, y, width, height, height / 2);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.18)";
+      ctx.stroke();
+      ctx.clip();
+      const gradient = ctx.createLinearGradient(x, 0, x + width, 0);
+      gradient.addColorStop(0, COLOR.cyan);
+      gradient.addColorStop(0.5, COLOR.orange);
+      gradient.addColorStop(1, COLOR.pink);
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = COLOR.pink;
+      ctx.shadowBlur = 20;
+      ctx.fillRect(x, y, (width * score) / 100, height);
+      ctx.restore();
+      return height;
+    }
+
+    // Runs twice: once with draw=false to measure height, then to paint.
+    function drawContent(ctx, r, draw) {
+      const { W, PANEL_TOP, CONTENT_X: x, CONTENT_W: width } = CANVAS;
+      const right = x + width;
+      let y = PANEL_TOP + 70;
+      ctx.textBaseline = "alphabetic";
+
+      if (draw) {
+        setFont(ctx, 700, 30, FAMILY.hud, "6px");
+        ctx.textAlign = "left";
+        ctx.fillStyle = COLOR.cyan;
+        ctx.fillText("LEONIDA ELIGIBILITY REPORT", x, y);
+      }
+      y += 28;
+      if (draw) {
+        ctx.fillStyle = "rgba(255, 255, 255, 0.14)";
+        ctx.fillRect(x, y, width, 2);
+      }
+      y += 58;
+
+      const rows = [
+        ["HARDWARE", r.hardware.label, FAMILY.hud, 700, 34],
+        ["BANK BALANCE", r.budget.label, FAMILY.hud, 700, 34],
+        ["INTERNET", r.network.label, FAMILY.hud, 700, 34],
+        ["LIFE STATUS", r.life.label, FAMILY.hud, 700, 34],
+        ["COPIUM LEVEL", `${r.cope}% · ${r.copeLabel}`, FAMILY.num, 700, 30],
+      ];
+      for (const [label, value, family, weight, size] of rows) {
+        setFont(ctx, weight, size, family);
+        const lines = wrapLines(ctx, value, 540);
+        if (draw) {
+          ctx.textAlign = "right";
+          ctx.fillStyle = COLOR.text;
+          lines.forEach((line, i) => ctx.fillText(line, right, y + i * 40));
+          setFont(ctx, 600, 26, FAMILY.hud, "3px");
+          ctx.textAlign = "left";
+          ctx.fillStyle = COLOR.muted;
+          ctx.fillText(label, x, y);
+        }
+        y += lines.length * 40 + 22;
+      }
+
+      const stamp = fitStamp(ctx, r.verdict.stamp);
+      const lineH = stamp.size * 1.04;
+      const boxW = Math.min(800, stamp.width + 90);
+      const boxH = stamp.lines.length * lineH + 56;
+      const stampCenterY = y + 70 + boxH / 2;
+      if (draw) drawStamp(ctx, stamp, W / 2, stampCenterY, boxW, boxH, lineH);
+      y = stampCenterY + boxH / 2 + 90;
+
+      setFont(ctx, 500, 36, FAMILY.hud);
+      const roastLines = wrapLines(ctx, r.verdict.line, 800);
+      if (draw) {
+        ctx.textAlign = "center";
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = COLOR.text;
+        roastLines.forEach((line, i) => ctx.fillText(line, W / 2, y + i * 46));
+      }
+      y += (roastLines.length - 1) * 46 + 84;
+
+      if (draw) {
+        setFont(ctx, 700, 28, FAMILY.hud, "4px");
+        ctx.textAlign = "left";
+        ctx.fillStyle = COLOR.cyan;
+        ctx.fillText("COPE-O-METER", x, y);
+        setFont(ctx, 700, 32, FAMILY.num);
+        ctx.textAlign = "right";
+        glowText(ctx, `${r.cope}% ${r.copeLabel.toUpperCase()}`, right, y, COLOR.pink, COLOR.pink, 12);
+      }
+      y += 24;
+      const meterH = draw ? drawMeter(ctx, x, y, width, r.score) : 40;
+      y += meterH + 80;
+
+      const colX = x + (width + 40) / 2;
+      if (draw) {
+        setFont(ctx, 600, 24, FAMILY.hud, "3px");
+        ctx.textAlign = "left";
+        ctx.fillStyle = COLOR.muted;
+        ctx.fillText("STORAGE NEEDED", x, y);
+        ctx.fillText("DOWNLOAD ETA", colX, y);
+      }
+      y += 48;
+      if (draw) {
+        setFont(ctx, 700, 36, FAMILY.num);
+        ctx.textAlign = "left";
+        ctx.fillStyle = COLOR.orange;
+        ctx.fillText(r.storage, x, y);
+        ctx.fillStyle = COLOR.cyan;
+        ctx.fillText(r.download, colX, y);
+      }
+      y += 74;
+      if (draw) {
+        setFont(ctx, 600, 24, FAMILY.hud, "3px");
+        ctx.fillStyle = COLOR.muted;
+        ctx.fillText("EST. PLAYABLE DATE", x, y);
+      }
+      y += 46;
+      setFont(ctx, 500, 30, FAMILY.num);
+      const dateLines = wrapLines(ctx, r.playable, width);
+      if (draw) {
+        ctx.textAlign = "left";
+        ctx.fillStyle = COLOR.text;
+        dateLines.forEach((line, i) => ctx.fillText(line, x, y + i * 40));
+      }
+      y += (dateLines.length - 1) * 40 + 56;
+      return y;
+    }
+
+    function drawPanel(ctx, height) {
+      const { PANEL_X, PANEL_TOP, PANEL_W } = CANVAS;
+      ctx.save();
+      roundRectPath(ctx, PANEL_X, PANEL_TOP, PANEL_W, height, 36);
+      ctx.fillStyle = "rgba(15, 7, 24, 0.88)";
+      ctx.shadowColor = COLOR.pink;
+      ctx.shadowBlur = 40;
+      ctx.fill();
+      ctx.shadowBlur = 16;
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(255, 42, 133, 0.75)";
+      ctx.stroke();
+      ctx.restore();
+
+      const accent = ctx.createLinearGradient(PANEL_X, 0, PANEL_X + PANEL_W, 0);
+      accent.addColorStop(0, COLOR.cyan);
+      accent.addColorStop(1, COLOR.pink);
+      ctx.fillStyle = accent;
+      ctx.fillRect(PANEL_X + 60, PANEL_TOP, PANEL_W - 120, 4);
+    }
+
+    function drawFooter(ctx) {
+      const { W, H } = CANVAS;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "alphabetic";
+      setFont(ctx, 500, 32, FAMILY.num);
+      const urlLines = wrapLines(ctx, CONFIG.FOOTER_URL, W - 160);
+      urlLines.forEach((line, i) => glowText(ctx, line, W / 2, H - 112 - (urlLines.length - 1 - i) * 40, COLOR.cyan, COLOR.cyan, 14));
+      setFont(ctx, 500, 24, FAMILY.hud, "1px");
+      ctx.fillStyle = COLOR.muted;
+      wrapLines(ctx, COPY.disclaimer, W - 160).forEach((line, i) => ctx.fillText(line, W / 2, H - 60 + i * 30));
+    }
+
+    async function drawStoryCard(result) {
+      const token = ++drawToken;
+      el.downloadBtn.disabled = true;
+      await fontsReady;
+      if (token !== drawToken) return;
+
+      const { W, H, PANEL_TOP, FOOTER_SPACE } = CANVAS;
+      const ctx = el.canvas.getContext("2d");
+      ctx.clearRect(0, 0, W, H);
+      drawBackground(ctx);
+      drawHeader(ctx);
+
+      const naturalHeight = drawContent(ctx, result, false) - PANEL_TOP;
+      const scale = Math.min(1, (H - FOOTER_SPACE - PANEL_TOP) / naturalHeight);
+      ctx.save();
+      ctx.translate(W / 2, PANEL_TOP);
+      ctx.scale(scale, scale);
+      ctx.translate(-W / 2, -PANEL_TOP);
+      drawPanel(ctx, naturalHeight);
+      drawContent(ctx, result, true);
+      ctx.restore();
+      drawFooter(ctx);
+
+      el.canvas.setAttribute("aria-label", `Story card. Verdict: ${result.verdict.stamp}. ${result.verdict.line} Download ETA ${result.download}. Cope score ${result.cope} percent, ${result.copeLabel}.`);
+      el.downloadBtn.disabled = false;
+    }
+
+    /* =========================================================
+       SHARE ACTIONS
+       ========================================================= */
+    function downloadCard() {
+      const link = document.createElement("a");
+      link.href = el.canvas.toDataURL("image/png");
+      link.download = COPY.downloadName;
+      document.body.append(link);
+      link.click();
+      link.remove();
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.append(area);
+        area.select();
+        const ok = document.execCommand("copy");
+        area.remove();
+        return ok;
+      }
+    }
+
+    async function challengeFriend() {
+      if (!currentResult) return;
+      const text = COPY.shareText(currentResult.cope);
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: COPY.shareTitle, text });
+          return;
+        } catch (error) {
+          if (error.name === "AbortError") return;
+        }
+      }
+      showToast((await copyText(text)) ? COPY.toastCopied : COPY.toastCopyFailed);
+    }
+
+    function showToast(message) {
+      clearTimeout(toastTimer);
+      el.toast.textContent = message;
+      el.toast.classList.add("show");
+      toastTimer = setTimeout(() => el.toast.classList.remove("show"), 2600);
+    }
+
+    function addRipple(event) {
+      const target = event.target.closest(".btn");
+      if (!target || target.disabled || reduceMotion.matches) return;
+      const rect = target.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height) * 2;
+      const ripple = document.createElement("span");
+      ripple.className = "ripple";
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+      ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+      target.append(ripple);
+    }
+
+    /* =========================================================
+       INIT
+       ========================================================= */
+    function init() {
+      document.title = `${CONFIG.APP_NAME} — Reality & PC Cope Simulator`;
+      $("app-name").textContent = CONFIG.APP_NAME;
+      $("pc-release").textContent = CONFIG.PC_RELEASE_GUESS;
+      $("disclaimer").textContent = COPY.disclaimer;
+
+      renderSelects();
+      syncSelects();
+      updateSlider();
+      updateRunButton();
+
+      el.selects.forEach((select) => {
+        select.addEventListener("change", () => onSelectChange(select));
+      });
+      el.slider.addEventListener("input", () => {
+        state.copium = Number(el.slider.value);
+        updateSlider();
+      });
+      el.runBtn.addEventListener("click", runScan);
+      $("edit-btn").addEventListener("click", () => showScreen("input"));
+      $("back-btn").addEventListener("click", resetAll);
+      el.downloadBtn.addEventListener("click", downloadCard);
+      $("share-btn").addEventListener("click", challengeFriend);
+      document.addEventListener("pointerdown", addRipple);
+    }
+
+    init();
+  </script>
+</body>
+</html>

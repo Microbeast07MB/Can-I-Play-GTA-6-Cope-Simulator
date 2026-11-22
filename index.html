@@ -12,15 +12,18 @@
   Anything marked "VERIFY before launch" is a placeholder, not a confirmed fact.
 -->
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0f0718">
-  <meta name="description" content="Fan-made parody meme generator: find out if you can actually play GTA 6 and get your 9:16 Copium story card.">
+  <meta name="description"
+    content="Fan-made parody meme generator: find out if you can actually play GTA 6 and get your 9:16 Copium story card.">
   <title>Can I Play GTA 6? — Reality &amp; PC Cope Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@500;700&family=Permanent+Marker&family=Rajdhani:wght@500;600;700&display=swap">
   <style>
     :root {
       --bg: #0f0718;
@@ -39,8 +42,13 @@
       --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
       margin: 0;
@@ -60,9 +68,17 @@
       background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
       animation: scan-drift 8s linear infinite;
     }
-    @keyframes scan-drift { to { background-position: 0 120px; } }
 
-    .num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+    @keyframes scan-drift {
+      to {
+        background-position: 0 120px;
+      }
+    }
+
+    .num {
+      font-family: var(--f-num);
+      font-variant-numeric: tabular-nums;
+    }
 
     /* ---------- Header + horizon ---------- */
     .site-header {
@@ -72,13 +88,21 @@
       text-align: center;
       isolation: isolate;
     }
-    .horizon { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+    .horizon {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .horizon::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom, transparent 30%, rgba(255, 42, 133, 0.16) 62%, rgba(255, 123, 0, 0.22) calc(100% - 92px), transparent calc(100% - 90px));
     }
+
     .sun {
       position: absolute;
       left: 50%;
@@ -93,6 +117,7 @@
       box-shadow: 0 0 60px rgba(255, 42, 133, 0.45);
       opacity: 0.9;
     }
+
     .grid-floor {
       position: absolute;
       left: 0;
@@ -106,6 +131,7 @@
       -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent);
       mask-image: linear-gradient(to bottom, #000 30%, transparent);
     }
+
     .grid-floor::before {
       content: "";
       position: absolute;
@@ -118,7 +144,12 @@
       transform-origin: 50% 100%;
       animation: grid-run 1.6s linear infinite;
     }
-    @keyframes grid-run { to { background-position: 0 40px; } }
+
+    @keyframes grid-run {
+      to {
+        background-position: 0 40px;
+      }
+    }
 
     .hud-tag {
       margin: 0;
@@ -127,12 +158,14 @@
       color: var(--muted);
       text-transform: uppercase;
     }
+
     .logo {
       margin: 10px 0 2px;
       font: 400 clamp(36px, 11vw, 56px)/1.05 var(--f-logo);
       color: #fff4fa;
       text-shadow: 0 0 8px var(--pink), 0 0 26px rgba(255, 42, 133, 0.7);
     }
+
     .tagline {
       margin: 0;
       font: 700 15px var(--f-hud);
@@ -143,8 +176,17 @@
     }
 
     /* ---------- Layout ---------- */
-    main { width: 100%; max-width: 560px; margin: -64px auto 0; padding: 0 16px 32px; position: relative; }
-    .screen[hidden] { display: none; }
+    main {
+      width: 100%;
+      max-width: 560px;
+      margin: -64px auto 0;
+      padding: 0 16px 32px;
+      position: relative;
+    }
+
+    .screen[hidden] {
+      display: none;
+    }
 
     .screen-title {
       margin: 0 0 4px;
@@ -156,9 +198,18 @@
       text-shadow: 0 0 14px rgba(0, 240, 255, 0.45);
       outline: none;
     }
-    .screen-sub { margin: 0 0 20px; text-align: center; color: var(--muted); font-size: 16px; }
 
-    .step { margin: 0 0 22px; }
+    .screen-sub {
+      margin: 0 0 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .step {
+      margin: 0 0 22px;
+    }
+
     .step-title {
       display: flex;
       align-items: center;
@@ -169,10 +220,20 @@
       text-transform: uppercase;
       color: var(--muted);
     }
-    .step-num { font: 700 13px var(--f-num); color: var(--cyan); }
+
+    .step-num {
+      font: 700 13px var(--f-num);
+      color: var(--cyan);
+    }
 
     /* ---------- Dropdowns ---------- */
-    .fields { display: flex; flex-direction: column; gap: 18px; margin: 0 0 22px; }
+    .fields {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin: 0 0 22px;
+    }
+
     .field-label {
       display: flex;
       align-items: center;
@@ -184,6 +245,7 @@
       color: var(--muted);
       cursor: pointer;
     }
+
     .select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -206,31 +268,67 @@
       -webkit-tap-highlight-color: transparent;
       transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.15s var(--ease);
     }
-    .select:hover { border-color: var(--pink); box-shadow: 0 0 0 1px var(--pink), 0 0 18px rgba(255, 42, 133, 0.35); }
-    .select:not(.is-set) { color: var(--muted); }
+
+    .select:hover {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 1px var(--pink), 0 0 18px rgba(255, 42, 133, 0.35);
+    }
+
+    .select:not(.is-set) {
+      color: var(--muted);
+    }
+
     .select.is-set {
       border-color: var(--cyan);
       background-color: rgba(0, 240, 255, 0.08);
       animation: sel-pulse 2.4s ease-in-out infinite;
     }
-    .select.tap { animation: tap-pop 0.22s var(--ease); }
+
+    .select.tap {
+      animation: tap-pop 0.22s var(--ease);
+    }
+
     .select option,
     .select optgroup {
       background-color: #1a0b29;
       color: var(--text);
       font: 600 16px var(--f-hud);
     }
-    .select optgroup { color: var(--cyan); font-weight: 700; }
-    .select option:disabled { color: var(--muted); }
+
+    .select optgroup {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .select option:disabled {
+      color: var(--muted);
+    }
 
     @keyframes sel-pulse {
-      0%, 100% { box-shadow: 0 0 0 1px var(--cyan), 0 0 12px rgba(0, 240, 255, 0.3); }
-      50% { box-shadow: 0 0 0 1px var(--cyan), 0 0 24px rgba(0, 240, 255, 0.55); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 1px var(--cyan), 0 0 12px rgba(0, 240, 255, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 0 1px var(--cyan), 0 0 24px rgba(0, 240, 255, 0.55);
+      }
     }
+
     @keyframes tap-pop {
-      0% { transform: scale(1); }
-      40% { transform: scale(0.95); box-shadow: 0 0 0 2px var(--cyan), 0 0 30px rgba(0, 240, 255, 0.7); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 2px var(--cyan), 0 0 30px rgba(0, 240, 255, 0.7);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     :where(button, input, select):focus-visible {
@@ -246,9 +344,29 @@
       border: 1.5px solid rgba(255, 42, 133, 0.32);
       border-radius: var(--radius);
     }
-    .slider-label { display: block; font-weight: 600; font-size: 17px; line-height: 1.3; }
-    .slider-readout { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 12px 0 2px; }
-    .slider-value { font-size: 34px; font-weight: 700; color: var(--fill, var(--cyan)); text-shadow: 0 0 14px var(--fill, var(--cyan)); }
+
+    .slider-label {
+      display: block;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 1.3;
+    }
+
+    .slider-readout {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 12px 0 2px;
+    }
+
+    .slider-value {
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--fill, var(--cyan));
+      text-shadow: 0 0 14px var(--fill, var(--cyan));
+    }
+
     .copium-tag {
       padding: 4px 10px;
       border: 1.5px solid var(--fill, var(--cyan));
@@ -259,7 +377,13 @@
       color: var(--fill, var(--cyan));
       transition: color 0.2s, border-color 0.2s;
     }
-    .slider-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+    .slider-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
     input[type="range"] {
       --pct: 50%;
@@ -273,18 +397,21 @@
       border-radius: 10px;
       cursor: pointer;
     }
+
     input[type="range"]::-webkit-slider-runnable-track {
       height: 10px;
       border-radius: 999px;
       background: linear-gradient(to right, var(--fill) 0 var(--pct), rgba(255, 255, 255, 0.1) var(--pct) 100%);
       box-shadow: 0 0 12px var(--fill-glow);
     }
+
     input[type="range"]::-moz-range-track {
       height: 10px;
       border-radius: 999px;
       background: linear-gradient(to right, var(--fill) 0 var(--pct), rgba(255, 255, 255, 0.1) var(--pct) 100%);
       box-shadow: 0 0 12px var(--fill-glow);
     }
+
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 28px;
@@ -295,6 +422,7 @@
       border: 3px solid var(--fill);
       box-shadow: 0 0 0 4px var(--fill-glow), 0 0 18px var(--fill);
     }
+
     input[type="range"]::-moz-range-thumb {
       width: 22px;
       height: 22px;
@@ -325,9 +453,20 @@
       -webkit-tap-highlight-color: transparent;
       transition: box-shadow 0.2s var(--ease), background-color 0.2s var(--ease), transform 0.15s var(--ease), opacity 0.2s;
     }
-    .btn:hover:enabled { background-color: rgba(0, 240, 255, 0.14); box-shadow: 0 0 20px rgba(0, 240, 255, 0.45); }
-    .btn:active:enabled { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn:hover:enabled {
+      background-color: rgba(0, 240, 255, 0.14);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.45);
+    }
+
+    .btn:active:enabled {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
     .btn-primary {
       min-height: 64px;
@@ -336,18 +475,54 @@
       color: #14051c;
       font-size: 19px;
     }
-    .btn-primary:enabled { animation: cta-pulse 2.2s ease-in-out infinite; }
-    .btn-primary:hover:enabled { background: linear-gradient(90deg, #ff4b99, #ff8f24); box-shadow: 0 0 28px rgba(255, 42, 133, 0.7); }
-    .btn-primary:disabled { background: linear-gradient(90deg, #5a2142, #5a3416); color: #e6d6f0; }
-    @keyframes cta-pulse {
-      0%, 100% { box-shadow: 0 0 12px rgba(255, 42, 133, 0.45), 0 0 0 0 rgba(255, 42, 133, 0.45); }
-      50% { box-shadow: 0 0 26px rgba(255, 123, 0, 0.65), 0 0 0 6px rgba(255, 42, 133, 0); }
+
+    .btn-primary:enabled {
+      animation: cta-pulse 2.2s ease-in-out infinite;
     }
 
-    .btn-pink { border-color: var(--pink); color: #ffd1e5; background: rgba(255, 42, 133, 0.1); }
-    .btn-pink:hover:enabled { background-color: rgba(255, 42, 133, 0.2); box-shadow: 0 0 20px rgba(255, 42, 133, 0.5); }
-    .btn-ghost { border-color: rgba(185, 166, 214, 0.5); color: var(--text); background: transparent; }
-    .btn-ghost:hover:enabled { background-color: rgba(255, 255, 255, 0.06); box-shadow: 0 0 16px rgba(185, 166, 214, 0.35); }
+    .btn-primary:hover:enabled {
+      background: linear-gradient(90deg, #ff4b99, #ff8f24);
+      box-shadow: 0 0 28px rgba(255, 42, 133, 0.7);
+    }
+
+    .btn-primary:disabled {
+      background: linear-gradient(90deg, #5a2142, #5a3416);
+      color: #e6d6f0;
+    }
+
+    @keyframes cta-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 12px rgba(255, 42, 133, 0.45), 0 0 0 0 rgba(255, 42, 133, 0.45);
+      }
+
+      50% {
+        box-shadow: 0 0 26px rgba(255, 123, 0, 0.65), 0 0 0 6px rgba(255, 42, 133, 0);
+      }
+    }
+
+    .btn-pink {
+      border-color: var(--pink);
+      color: #ffd1e5;
+      background: rgba(255, 42, 133, 0.1);
+    }
+
+    .btn-pink:hover:enabled {
+      background-color: rgba(255, 42, 133, 0.2);
+      box-shadow: 0 0 20px rgba(255, 42, 133, 0.5);
+    }
+
+    .btn-ghost {
+      border-color: rgba(185, 166, 214, 0.5);
+      color: var(--text);
+      background: transparent;
+    }
+
+    .btn-ghost:hover:enabled {
+      background-color: rgba(255, 255, 255, 0.06);
+      box-shadow: 0 0 16px rgba(185, 166, 214, 0.35);
+    }
 
     .ripple {
       position: absolute;
@@ -357,11 +532,28 @@
       pointer-events: none;
       animation: ripple 0.5s ease-out forwards;
     }
-    @keyframes ripple { to { transform: scale(1); opacity: 0; } }
 
-    .run-area { margin-top: 26px; }
-    .run-hint { margin: 10px 0 0; text-align: center; font-size: 15px; color: var(--muted); }
-    .run-hint .num { color: var(--cyan); }
+    @keyframes ripple {
+      to {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    .run-area {
+      margin-top: 26px;
+    }
+
+    .run-hint {
+      margin: 10px 0 0;
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .run-hint .num {
+      color: var(--cyan);
+    }
 
     /* ---------- Scan screen ---------- */
     .terminal {
@@ -374,8 +566,18 @@
       border-radius: 16px;
       box-shadow: 0 0 30px rgba(0, 240, 255, 0.18), inset 0 0 30px rgba(0, 240, 255, 0.06);
     }
-    .terminal.shake { animation: shake 0.35s linear; }
-    .term-lines { list-style: none; margin: 18px 0 22px; padding: 0; min-height: 132px; }
+
+    .terminal.shake {
+      animation: shake 0.35s linear;
+    }
+
+    .term-lines {
+      list-style: none;
+      margin: 18px 0 22px;
+      padding: 0;
+      min-height: 132px;
+    }
+
     .term-line {
       width: 0;
       max-width: 100%;
@@ -385,11 +587,29 @@
       color: var(--cyan);
       animation: type 0.3s steps(var(--chars)) forwards;
     }
-    .term-line::before { content: "> "; color: var(--pink); }
-    .term-line:last-child:nth-child(4) { color: var(--orange); }
-    @keyframes type { to { width: calc((var(--chars) + 2) * 1ch); } }
 
-    .progress { height: 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .term-line::before {
+      content: "> ";
+      color: var(--pink);
+    }
+
+    .term-line:last-child:nth-child(4) {
+      color: var(--orange);
+    }
+
+    @keyframes type {
+      to {
+        width: calc((var(--chars) + 2) * 1ch);
+      }
+    }
+
+    .progress {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
     .progress-fill {
       height: 100%;
       width: 0;
@@ -397,7 +617,12 @@
       background: linear-gradient(90deg, var(--cyan), var(--pink), var(--orange));
       box-shadow: 0 0 14px var(--pink);
     }
-    .progress-fill.run { width: 100%; transition: width 1.5s linear; }
+
+    .progress-fill.run {
+      width: 100%;
+      transition: width 1.5s linear;
+    }
+
     .sweep {
       position: absolute;
       left: 0;
@@ -408,13 +633,35 @@
       animation: sweep 1.5s linear infinite;
       pointer-events: none;
     }
-    @keyframes sweep { to { transform: translateY(350%); } }
+
+    @keyframes sweep {
+      to {
+        transform: translateY(350%);
+      }
+    }
+
     @keyframes shake {
-      0%, 100% { transform: translate(0, 0); }
-      20% { transform: translate(-4px, 2px); }
-      40% { transform: translate(4px, -2px); }
-      60% { transform: translate(-3px, -1px); }
-      80% { transform: translate(3px, 1px); }
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      20% {
+        transform: translate(-4px, 2px);
+      }
+
+      40% {
+        transform: translate(4px, -2px);
+      }
+
+      60% {
+        transform: translate(-3px, -1px);
+      }
+
+      80% {
+        transform: translate(3px, 1px);
+      }
     }
 
     /* ---------- Result card ---------- */
@@ -426,9 +673,18 @@
       border: 1.5px solid rgba(255, 42, 133, 0.5);
       box-shadow: 0 0 30px rgba(255, 42, 133, 0.2);
     }
-    .result-card.shake { animation: shake 0.35s linear 0.32s; }
-    .stats, .facts { margin: 12px 0 0; }
-    .stats div, .facts div {
+
+    .result-card.shake {
+      animation: shake 0.35s linear 0.32s;
+    }
+
+    .stats,
+    .facts {
+      margin: 12px 0 0;
+    }
+
+    .stats div,
+    .facts div {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
@@ -436,11 +692,33 @@
       padding: 9px 0;
       border-bottom: 1px dashed var(--line);
     }
-    dt { flex-shrink: 0; font: 700 13px var(--f-hud); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-    dd { margin: 0; text-align: right; font-weight: 700; overflow-wrap: anywhere; }
-    .facts dd.num { font-size: 15px; font-weight: 500; }
 
-    .stamp-wrap { display: flex; justify-content: center; padding: 28px 6px 18px; }
+    dt {
+      flex-shrink: 0;
+      font: 700 13px var(--f-hud);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    dd {
+      margin: 0;
+      text-align: right;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .facts dd.num {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .stamp-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 28px 6px 18px;
+    }
+
     .stamp {
       margin: 0;
       max-width: 100%;
@@ -456,19 +734,66 @@
       box-shadow: 0 0 18px rgba(255, 42, 133, 0.6), inset 0 0 18px rgba(255, 42, 133, 0.35);
       transform: rotate(-4deg);
     }
-    .stamp.slam { animation: slam 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both; }
-    @keyframes slam {
-      0% { transform: rotate(-4deg) scale(2.6); opacity: 0; }
-      55% { transform: rotate(-4deg) scale(0.92); opacity: 1; }
-      78% { transform: rotate(-4deg) scale(1.04); }
-      100% { transform: rotate(-4deg) scale(1); }
-    }
-    .roast { margin: 0 0 18px; text-align: center; font-size: 17px; color: var(--text); }
 
-    .meter-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; }
-    .meter-label { font: 700 14px var(--f-hud); letter-spacing: 0.16em; color: var(--cyan); }
-    .meter-score { font-weight: 700; color: var(--pink); text-shadow: 0 0 10px rgba(255, 42, 133, 0.6); }
-    .meter-track { height: 18px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); overflow: hidden; }
+    .stamp.slam {
+      animation: slam 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+    }
+
+    @keyframes slam {
+      0% {
+        transform: rotate(-4deg) scale(2.6);
+        opacity: 0;
+      }
+
+      55% {
+        transform: rotate(-4deg) scale(0.92);
+        opacity: 1;
+      }
+
+      78% {
+        transform: rotate(-4deg) scale(1.04);
+      }
+
+      100% {
+        transform: rotate(-4deg) scale(1);
+      }
+    }
+
+    .roast {
+      margin: 0 0 18px;
+      text-align: center;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .meter-label {
+      font: 700 14px var(--f-hud);
+      letter-spacing: 0.16em;
+      color: var(--cyan);
+    }
+
+    .meter-score {
+      font-weight: 700;
+      color: var(--pink);
+      text-shadow: 0 0 10px rgba(255, 42, 133, 0.6);
+    }
+
+    .meter-track {
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+    }
+
     .meter-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--cyan), var(--orange), var(--pink));
@@ -476,12 +801,32 @@
       clip-path: inset(0 100% 0 0);
       transition: clip-path 0.9s var(--ease);
     }
-    .card-url { margin: 16px 0 0; text-align: center; font-size: 14px; color: var(--cyan); overflow-wrap: anywhere; }
 
-    .edit-btn { margin-top: 14px; }
+    .card-url {
+      margin: 16px 0 0;
+      text-align: center;
+      font-size: 14px;
+      color: var(--cyan);
+      overflow-wrap: anywhere;
+    }
 
-    .story { margin-top: 30px; }
-    .story-title { margin: 0 0 12px; font: 700 15px var(--f-hud); letter-spacing: 0.16em; text-transform: uppercase; text-align: center; color: var(--muted); }
+    .edit-btn {
+      margin-top: 14px;
+    }
+
+    .story {
+      margin-top: 30px;
+    }
+
+    .story-title {
+      margin: 0 0 12px;
+      font: 700 15px var(--f-hud);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--muted);
+    }
+
     #story-canvas {
       display: block;
       width: 100%;
@@ -494,12 +839,29 @@
       box-shadow: 0 0 30px rgba(0, 240, 255, 0.18);
       background: var(--bg);
     }
-    .share-actions { display: grid; gap: 12px; margin-top: 18px; }
-    .back-btn { margin-top: 22px; }
+
+    .share-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .back-btn {
+      margin-top: 22px;
+    }
 
     /* ---------- Footer + toast ---------- */
-    .site-footer { padding: 18px 20px 32px; text-align: center; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
-    .site-footer p { margin: 0; }
+    .site-footer {
+      padding: 18px 20px 32px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
+
+    .site-footer p {
+      margin: 0;
+    }
 
     .toast {
       position: fixed;
@@ -521,7 +883,11 @@
       pointer-events: none;
       transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
     }
-    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
 
     .sr-only {
       position: absolute;
@@ -536,10 +902,13 @@
     }
 
     @media (min-width: 640px) {
-      .site-header { padding-top: 40px; }
+      .site-header {
+        padding-top: 40px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       body::after,
       .grid-floor::before,
       .sweep,
@@ -548,13 +917,26 @@
       .btn-primary:enabled,
       .terminal.shake,
       .result-card.shake,
-      .stamp.slam { animation: none; }
-      .term-line { animation: none; width: auto; }
-      .meter-fill { transition: none; }
-      .ripple { display: none; }
+      .stamp.slam {
+        animation: none;
+      }
+
+      .term-line {
+        animation: none;
+        width: auto;
+      }
+
+      .meter-fill {
+        transition: none;
+      }
+
+      .ripple {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="horizon" aria-hidden="true">
@@ -578,15 +960,18 @@
           <select class="select" id="sel-hardware" data-field="hardware" required></select>
         </div>
         <div class="field">
-          <label class="field-label" for="sel-budget"><span class="step-num">02</span> // Bank Balance &amp; Financial Reality</label>
+          <label class="field-label" for="sel-budget"><span class="step-num">02</span> // Bank Balance &amp; Financial
+            Reality</label>
           <select class="select" id="sel-budget" data-field="budget" required></select>
         </div>
         <div class="field">
-          <label class="field-label" for="sel-network"><span class="step-num">03</span> // Storage &amp; Internet Situation</label>
+          <label class="field-label" for="sel-network"><span class="step-num">03</span> // Storage &amp; Internet
+            Situation</label>
           <select class="select" id="sel-network" data-field="network" required></select>
         </div>
         <div class="field">
-          <label class="field-label" for="sel-life"><span class="step-num">04</span> // Current Life &amp; Academic Status</label>
+          <label class="field-label" for="sel-life"><span class="step-num">04</span> // Current Life &amp; Academic
+            Status</label>
           <select class="select" id="sel-life" data-field="life" required></select>
         </div>
       </div>
@@ -594,7 +979,8 @@
       <section class="step" aria-labelledby="step-copium">
         <h3 class="step-title" id="step-copium"><span class="step-num">05</span> // Copium Strategy</h3>
         <div class="slider-card" id="slider-card">
-          <label class="slider-label" for="copium">How hard are you convincing yourself the PC port drops in <span id="pc-release"></span>?</label>
+          <label class="slider-label" for="copium">How hard are you convincing yourself the PC port drops in <span
+              id="pc-release"></span>?</label>
           <div class="slider-readout">
             <output class="slider-value num" id="copium-value" for="copium">50.0%</output>
             <span class="copium-tag" id="copium-label">Hopeful</span>
@@ -605,7 +991,8 @@
       </section>
 
       <div class="run-area">
-        <button type="button" class="btn btn-primary" id="run-btn" aria-describedby="run-hint" disabled>Run Rockstar Reality Check</button>
+        <button type="button" class="btn btn-primary" id="run-btn" aria-describedby="run-hint" disabled>Run Rockstar
+          Reality Check</button>
         <p class="run-hint" id="run-hint" aria-live="polite"></p>
       </div>
     </section>
@@ -616,7 +1003,8 @@
         <div class="sweep" aria-hidden="true"></div>
         <h2 class="screen-title" id="scan-title" tabindex="-1">Running Reality Check</h2>
         <ol class="term-lines" id="term-lines" aria-live="polite"></ol>
-        <div class="progress" id="scan-progress" role="progressbar" aria-label="Scan progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress" id="scan-progress" role="progressbar" aria-label="Scan progress" aria-valuemin="0"
+          aria-valuemax="100" aria-valuenow="0">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
       </div>
@@ -630,27 +1018,54 @@
       <article class="result-card" id="result-card" aria-labelledby="r-verdict">
         <p class="hud-tag">// Leonida Eligibility Report</p>
         <dl class="stats">
-          <div><dt>Hardware</dt><dd id="r-hardware"></dd></div>
-          <div><dt>Bank Balance</dt><dd id="r-budget"></dd></div>
-          <div><dt>Internet</dt><dd id="r-network"></dd></div>
-          <div><dt>Life Status</dt><dd id="r-life"></dd></div>
-          <div><dt>Copium Level</dt><dd class="num" id="r-copium"></dd></div>
+          <div>
+            <dt>Hardware</dt>
+            <dd id="r-hardware"></dd>
+          </div>
+          <div>
+            <dt>Bank Balance</dt>
+            <dd id="r-budget"></dd>
+          </div>
+          <div>
+            <dt>Internet</dt>
+            <dd id="r-network"></dd>
+          </div>
+          <div>
+            <dt>Life Status</dt>
+            <dd id="r-life"></dd>
+          </div>
+          <div>
+            <dt>Copium Level</dt>
+            <dd class="num" id="r-copium"></dd>
+          </div>
         </dl>
-        <div class="stamp-wrap"><p class="stamp" id="r-verdict"></p></div>
+        <div class="stamp-wrap">
+          <p class="stamp" id="r-verdict"></p>
+        </div>
         <p class="roast" id="r-roast"></p>
         <div class="meter">
           <div class="meter-head">
             <span class="meter-label">COPE-O-METER</span>
             <span class="meter-score num"><span id="r-score">0.0</span>% <span id="r-score-label"></span></span>
           </div>
-          <div class="meter-track" id="r-meter" role="meter" aria-label="Cope-O-Meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="meter-track" id="r-meter" role="meter" aria-label="Cope-O-Meter" aria-valuemin="0"
+            aria-valuemax="100" aria-valuenow="0">
             <div class="meter-fill" id="r-meter-fill"></div>
           </div>
         </div>
         <dl class="facts">
-          <div><dt>Storage Needed</dt><dd class="num" id="r-storage"></dd></div>
-          <div><dt>Download ETA</dt><dd class="num" id="r-download"></dd></div>
-          <div><dt>Est. Playable Date</dt><dd class="num" id="r-date"></dd></div>
+          <div>
+            <dt>Storage Needed</dt>
+            <dd class="num" id="r-storage"></dd>
+          </div>
+          <div>
+            <dt>Download ETA</dt>
+            <dd class="num" id="r-download"></dd>
+          </div>
+          <div>
+            <dt>Est. Playable Date</dt>
+            <dd class="num" id="r-date"></dd>
+          </div>
         </dl>
         <p class="card-url num" id="r-url"></p>
       </article>
@@ -659,7 +1074,8 @@
 
       <section class="story" aria-labelledby="story-title">
         <h3 class="story-title" id="story-title">Your 9:16 Story Card</h3>
-        <canvas id="story-canvas" width="1080" height="1920" role="img" aria-label="GTA 6 reality check story card"></canvas>
+        <canvas id="story-canvas" width="1080" height="1920" role="img"
+          aria-label="GTA 6 reality check story card"></canvas>
         <div class="share-actions">
           <button type="button" class="btn btn-primary" id="download-btn" disabled>Download 9:16 Story Card</button>
           <button type="button" class="btn btn-pink" id="share-btn">Challenge a Friend</button>
@@ -684,7 +1100,7 @@
        ========================================================= */
     const CONFIG = {
       APP_NAME: "Can I Play GTA 6?",
-      FOOTER_URL: "[YOUR_LINK].embarko.app",   // replace after deploy
+      FOOTER_URL: "gta6-reality-check.embarko.app",   // replace after deploy
       STORAGE_GB: 212,                         // VERIFY before launch — must be confirmed against official specs
       PC_RELEASE_GUESS: "Q1 2027",             // VERIFY before launch — placeholder only, not an announced date
       CONSOLE_PLAYABLE: "Today at 12:00 AM (if you skip tomorrow's 8 AM lecture)",  // VERIFY before launch — assumes the console version is already out
@@ -695,44 +1111,44 @@
        DATA — dropdown options and copy
        Each option: { value, label, group? }. Dropdowns are built from these arrays.
        ========================================================= */
-    const HARDWARE = [
-      { value: "ps5_pro", label: "PS5 Pro (4K Ray-Tracing Flex)", group: "Consoles (The Chosen Ones)", isConsole: true },
-      { value: "ps5_std", label: "PS5 / PS5 Slim (Disc or Digital)", group: "Consoles (The Chosen Ones)", isConsole: true },
-      { value: "xbox_sx", label: "Xbox Series X (1TB Fridge)", group: "Consoles (The Chosen Ones)", isConsole: true },
-      { value: "xbox_ss", label: "Xbox Series S (512GB Storage Struggle — 212GB hurts)", group: "Consoles (The Chosen Ones)", isConsole: true },
-      { value: "ps4_xb1", label: "PS4 / Xbox One (Last-Gen Relic)", group: "Consoles (The Chosen Ones)" },
-      { value: "pc_god", label: "RTX 4090 / 5080 / 5090 Monster Rig (₹2.5L+ Paperweight)", group: "Gaming PCs & Laptops (The Copium Ward)" },
-      { value: "pc_mid_high", label: "RTX 4060 / 4070 / RX 7700 XT (Solid 1440p, Zero Game)", group: "Gaming PCs & Laptops (The Copium Ward)" },
-      { value: "pc_budget", label: "RTX 3050 / RTX 2050 / GTX 1650 (College Hostel Starter Pack)", group: "Gaming PCs & Laptops (The Copium Ward)" },
-      { value: "pc_ancient", label: "GTX 1050 Ti / GT 710 / MX130 (Praying for FSR Ultra Performance)", group: "Gaming PCs & Laptops (The Copium Ward)" },
-      { value: "pc_igpu", label: "Intel Iris Xe / UHD Graphics / Ryzen Vega (Integrated GPU Survivor)", group: "Gaming PCs & Laptops (The Copium Ward)" },
-      { value: "macbook", label: "MacBook Air / Pro (M1/M2/M3/M4 — \"Is it on App Store?\")", group: "Non-Gaming / Portable Devices" },
-      { value: "handheld", label: "Steam Deck / ROG Ally / Nintendo Switch", group: "Non-Gaming / Portable Devices" },
-      { value: "mobile", label: "Android / iPhone Only (Waiting for APK OBB 50MB compressed)", group: "Non-Gaming / Portable Devices" },
+        const HARDWARE = [
+      { value: "ps5_pro", label: "PS5 Pro — Ray-Tracing Flex", group: "Current-Gen Consoles", isConsole: true },
+      { value: "ps5_std", label: "PS5 / PS5 Slim", group: "Current-Gen Consoles", isConsole: true },
+      { value: "xbox_sx", label: "Xbox Series X — 1TB", group: "Current-Gen Consoles", isConsole: true },
+      { value: "xbox_ss", label: "Xbox Series S — 512GB Storage Pain", group: "Current-Gen Consoles", isConsole: true },
+      { value: "pc_god", label: "RTX 4090 / 5080 / 5090 Monster Rig", group: "Gaming PCs & Laptops (No Official PC Port Yet)" },
+      { value: "pc_mid", label: "RTX 4060 / 4070 / RX 7700 XT", group: "Gaming PCs & Laptops (No Official PC Port Yet)" },
+      { value: "pc_budget", label: "GTX 1650 / RTX 2050 / RTX 3050 Laptop", group: "Gaming PCs & Laptops (No Official PC Port Yet)" },
+      { value: "pc_ancient", label: "GTX 1050 Ti / GT 710 / MX130", group: "Gaming PCs & Laptops (No Official PC Port Yet)" },
+      { value: "pc_igpu", label: "Intel Iris Xe / UHD / Ryzen Integrated GPU", group: "Gaming PCs & Laptops (No Official PC Port Yet)" },
+      { value: "ps4_xb1", label: "PS4 / Xbox One", group: "Legacy, Handheld & Non-Gaming" },
+      { value: "macbook", label: "MacBook Air / Pro M1–M4", group: "Legacy, Handheld & Non-Gaming" },
+      { value: "handheld", label: "Steam Deck / ROG Ally / Switch", group: "Legacy, Handheld & Non-Gaming" },
+      { value: "mobile", label: "Android / iPhone Only", group: "Legacy, Handheld & Non-Gaming" },
     ];
 
     const BUDGET = [
-      { value: "broke_0", label: "₹0 – ₹199 (Canteen Chai & Maggi Deficit)" },
-      { value: "broke_1500", label: "₹500 – ₹2,000 (Enough for 10 hrs at a Gaming Cafe)" },
-      { value: "game_only", label: "₹5,999 – ₹7,499 (Can afford Standard/Ultimate Edition, no console)" },
-      { value: "emi_warrior", label: "₹10,000+ with a No-Cost EMI Card (Living dangerously)" },
-      { value: "ps5_ready", label: "₹55,000 – ₹75,000 (Can buy PS5 Slim + Game today)" },
-      { value: "rich_kid", label: "₹1,50,000+ (Dad's Credit Card / Tech Bro Salary)" },
+      { value: "broke_0", label: "₹0 – ₹199 — Canteen Chai & Maggi Deficit" },
+      { value: "cafe_1500", label: "₹500 – ₹2,000 — Gaming Cafe ₹100/hr Budget" },
+      { value: "game_only", label: "₹5,999 – ₹7,499 — Can Buy Game, No Console" },
+      { value: "emi_warrior", label: "₹10,000 + No-Cost EMI Credit Card" },
+      { value: "ps5_ready", label: "₹55,000 – ₹75,000 — PS5 Slim + Game Ready" },
+      { value: "rich_kid", label: "₹1,50,000+ — Zero Financial Friction" },
     ];
 
     const NETWORK = [
       { value: "net_god", label: "300 Mbps Fiber + 1TB Free SSD", mbps: 300, dailyCapGB: null },
-      { value: "net_avg", label: "40 Mbps Wi-Fi + Deleting 4 Games to fit 212GB", mbps: 40, dailyCapGB: null },
-      { value: "net_jio", label: "Mobile Data 2GB/day Limit", mbps: 5, dailyCapGB: 2 },
-      { value: "net_hostel", label: "College Hostel Wi-Fi (Steam & PSN blocked by firewall)", mbps: 10, dailyCapGB: null },
+      { value: "net_avg", label: "40 Mbps Wi-Fi — Deleting 4 Games to Fit 212GB", mbps: 40, dailyCapGB: null },
+      { value: "net_jio", label: "Jio / Airtel 5G Daily 2GB Data Cap", mbps: 5, dailyCapGB: 2 },
+      { value: "net_hostel", label: "College Hostel Wi-Fi — PSN & Steam Blocked", mbps: 10, dailyCapGB: null },
     ];
 
     const LIFE = [
-      { value: "exams_now", label: "End-Sem Exams / Viva / Submissions This Week" },
-      { value: "attendance_low", label: "Attendance at 68% (One bunk away from detention)" },
-      { value: "unemployed", label: "Final Year / Unemployed (\"Building side projects\")" },
-      { value: "corporate", label: "9-to-6 Corporate Slave (Money exists, energy does not)" },
-      { value: "free_soul", label: "Zero Responsibilities (Pure Leonida gremlin mode)" },
+      { value: "exams_now", label: "End-Sem Exams / Viva / Submissions Incoming" },
+      { value: "attendance_low", label: "Attendance at 68% — Detention Danger Zone" },
+      { value: "unemployed", label: "Unemployed / Final Year — Grinding LeetCode" },
+      { value: "corporate", label: "9-to-6 Job — Have Money, Zero Free Time" },
+      { value: "free_soul", label: "Zero Responsibilities — Full Leonida Gremlin" },
     ];
 
     const FIELDS = { hardware: HARDWARE, budget: BUDGET, network: NETWORK, life: LIFE };
@@ -808,93 +1224,158 @@
     };
 
     /* =========================================================
-       VERDICT ENGINE
+       1,560-COMBINATION REALITY & COPIUM ENGINE
+       (13 Hardware × 6 Budget × 4 Network × 5 Life Status)
        ========================================================= */
     function getOption(field, value) {
       return FIELDS[field].find((option) => option.value === value);
     }
 
-    const isConsole = (s) => Boolean(getOption("hardware", s.hardware)?.isConsole);
-    const isExamOrLowAttendance = (s) => s.life === "exams_now" || s.life === "attendance_low";
-    const isUnder5999 = (s) => s.budget === "broke_0" || s.budget === "broke_1500";
-    const hardwareIn = (s, ...values) => values.includes(s.hardware);
+    // Archetype Classification Helpers
+    const hwTier = (s) => {
+      if (["ps5_pro", "ps5_std", "xbox_sx", "xbox_ss"].includes(s.hardware)) return "console";
+      if (["pc_god", "pc_mid"].includes(s.hardware)) return "pc_high";
+      if (["pc_budget", "pc_ancient", "pc_igpu", "macbook"].includes(s.hardware)) return "pc_low";
+      return "legacy";
+    };
 
-    // Ordered rule list: the first rule whose match() passes wins.
-    // `line` can be a string or a function of state for per-input variations.
+    const walletBroke = (s) => ["broke_0", "cafe_1500"].includes(s.budget);
+    const walletRich = (s) => ["ps5_ready", "rich_kid"].includes(s.budget);
+    const walletCanBuy = (s) => ["emi_warrior", "ps5_ready", "rich_kid"].includes(s.budget);
+    const netCursed = (s) => ["net_jio", "net_hostel"].includes(s.network);
+    const netNotFiber = (s) => s.network !== "net_god";
+    const lifeStudent = (s) => ["exams_now", "attendance_low"].includes(s.life);
+    const lifeGrind = (s) => ["unemployed", "corporate"].includes(s.life);
+
+    const _hw = (s) => getOption("hardware", s.hardware)?.label || "your rig";
+    const _bud = (s) => getOption("budget", s.budget)?.label || "your budget";
+    const _net = (s) => getOption("network", s.network)?.label || "your network";
+    const _lif = (s) => getOption("life", s.life)?.label || "your schedule";
+    const _cop = (s) => s.copium.toFixed(1);
+    const _dl = (s) => estimateDownload(getOption("network", s.network));
+
+    // The 1,560-Combination Rule Matrix
     const VERDICTS = [
-      {
-        id: "storage_executioner",
-        match: (s) => s.hardware === "xbox_ss",
-        stamp: "STORAGE EXECUTIONER",
-        line: "Your 512GB Series S only has 364GB usable. Installing GTA 6's 212GB means deleting every other game, your OS, and your childhood memories.", // VERIFY before launch — usable storage and install size
-      },
-      {
-        id: "academic_ruin_funded",
-        match: (s) => isConsole(s) && isExamOrLowAttendance(s) && !isUnder5999(s),
-        stamp: "ACADEMIC RUIN IMMINENT",
-        line: "You have the console and the ₹5,999, but your attendance is in the red. Skipping tomorrow's 8 AM lecture for Vice City will cost you a semester.",
-      },
-      {
-        id: "academic_ruin_broke",
-        match: (s) => isConsole(s) && isExamOrLowAttendance(s),
-        stamp: "ACADEMIC RUIN IMMINENT",
-        line: "Your attendance is already in the red, and the PlayStation Store is your only ticket to Vice City. Good luck explaining that to your parents.",
-      },
+      /* ── BUCKET 1: Current-Gen Console Owners (ps5_pro, ps5_std, xbox_sx, xbox_ss) ── */
       {
         id: "digital_paperweight",
-        match: (s) => isConsole(s) && isUnder5999(s),
+        match: (s) => hwTier(s) === "console" && walletBroke(s),
         stamp: "₹5,999 DIGITAL PAPERWEIGHT",
-        line: "Imagine owning a next-gen console and staring at the PlayStation Store checkout screen with ₹420 in UPI. Borrow from your roommate immediately.",
+        estimatedPlayDate: "When you borrow ₹5,999 or find a rich friend",
+        line: (s) => `You own a ${_hw(s)} but your wallet is in "${_bud(s)}" mode. You are staring at the digital checkout with ₹140 in your UPI account while running on ${_cop(s)}% Copium. Beg your roommate immediately.`,
+      },
+      {
+        id: "storage_executioner",
+        match: (s) => s.hardware === "xbox_ss" && netNotFiber(s),
+        stamp: "212 GB STORAGE EXECUTIONER",
+        estimatedPlayDate: "After deleting 58% of your SSD",
+        line: (s) => `Your ${_hw(s)} only has 364GB usable storage. Installing GTA 6's 212GB means wiping almost 60% of your SSD, and over "${_net(s)}" it will take ${_dl(s)}. Your ${_cop(s)}% Copium cannot make that SSD expand.`,
+      },
+      {
+        id: "download_hostage",
+        match: (s) => hwTier(s) === "console" && netCursed(s),
+        stamp: "212 GB DOWNLOAD HOSTAGE",
+        line: (s) => s.network === "net_jio"
+          ? `Your ${_hw(s)} is ready, but your "${_net(s)}" means waiting 106 days on a 2GB/day limit to download 212GB. Even at ${_cop(s)}% Copium, the telco speed throttle will break your soul.`
+          : `Your ${_hw(s)} is powered on, but "${_net(s)}" has Steam and PSN firewalled into oblivion. At ${_cop(s)}% Copium, you are bribing the hostel warden for the router password.`,
+        estimatedPlayDate: (s) => s.network === "net_jio" ? "In ~106 days (2GB/day cap)" : "When campus IT unblocks PSN",
+      },
+      {
+        id: "academic_ruin",
+        match: (s) => hwTier(s) === "console" && lifeStudent(s),
+        stamp: "ACADEMIC RUIN IMMINENT",
+        estimatedPlayDate: "Tomorrow at 12:00 AM (at the cost of your degree)",
+        line: (s) => `Your ${_hw(s)} is primed, but your current situation is "${_lif(s)}." Skipping tomorrow's 8 AM lecture to explore Vice City with ${_cop(s)}% Copium will officially cost you an entire semester.`,
+      },
+      {
+        id: "weekend_tourist",
+        match: (s) => hwTier(s) === "console" && lifeGrind(s),
+        stamp: "WEEKEND-ONLY TOURIST",
+        estimatedPlayDate: "Saturday at 11:30 PM (before passing out)",
+        line: (s) => `You have the ${_hw(s)} and the money, but "${_lif(s)}" means you will fall asleep during the opening cutscene after a 10-hour grind. ${_cop(s)}% Copium cannot replenish your energy.`,
+      },
+      {
+        id: "leonida_citizen",
+        match: (s) => hwTier(s) === "console",
+        stamp: "CERTIFIED LEONIDA CITIZEN",
+        estimatedPlayDate: "PLAYABLE RIGHT NOW",
+        line: (s) => `Your ${_hw(s)} is loaded, your budget is "${_bud(s)}", and your schedule is "${_lif(s)}." Even with ${_cop(s)}% Copium, you have zero obstacles left. Welcome to Vice City, citizen!`,
+      },
+
+      /* ── BUCKET 2: High-End PC Rigs (pc_god, pc_mid) ── */
+      {
+        id: "impulse_ps5_buyer",
+        match: (s) => hwTier(s) === "pc_high" && walletCanBuy(s),
+        stamp: "IMPULSE PS5 BUYER",
+        estimatedPlayDate: "Within 48 hours (when Amazon delivers your PS5 Slim)",
+        line: (s) => `You spent serious money on a ${_hw(s)} and have "${_bud(s)}" ready. Your ${_cop(s)}% PC Copium will snap within 48 hours and you will impulse-buy a PS5 Slim just to avoid YouTube spoilers.`,
+      },
+      {
+        id: "blessing_disguise",
+        match: (s) => hwTier(s) === "pc_high" && lifeStudent(s),
+        stamp: "BLESSING IN DISGUISE",
+        estimatedPlayDate: "Q1 2027 (After you hopefully graduate)",
+        line: (s) => `Rockstar skipping PC is the only reason you won't fail with "${_lif(s)}." Your ${_hw(s)} is parked and at ${_cop(s)}% Copium, Take-Two accidentally saved your CGPA.`,
       },
       {
         id: "lakh_youtube",
-        match: (s) => s.hardware === "pc_god",
-        stamp: "₹2.5 LAKH YOUTUBE PLAYER",
-        line: "You spent ₹2.5 lakh on a ray-tracing monster just to watch PS5 players spoil the entire ending in 1080p while Rockstar ignores Windows until 2027/2028.", // VERIFY before launch — release years are a guess
+        match: (s) => hwTier(s) === "pc_high",
+        stamp: "₹2 LAKH YOUTUBE PLAYER",
+        estimatedPlayDate: "Q1 2027 on PC (or YouTube 4K 60FPS tonight)",
+        line: (s) => `You invested in a ${_hw(s)} only to watch console players spoil the entire Vice City storyline in 1080p while Rockstar ignores PC. Your ${_cop(s)}% Copium won't speed up Windows optimization.`,
+      },
+
+      /* ── BUCKET 3: Budget / Potato PCs, iGPUs & MacBooks (pc_budget, pc_ancient, pc_igpu, macbook) ── */
+      {
+        id: "hardware_rescue",
+        match: (s) => hwTier(s) === "pc_low" && walletRich(s),
+        stamp: "URGENT HARDWARE RESCUE",
+        estimatedPlayDate: "Tomorrow afternoon (if you buy a PS5 Slim today)",
+        line: (s) => `You are attempting to game on a ${_hw(s)} while sitting on "${_bud(s)}." Stop clinging to ${_cop(s)}% Copium and rescue yourself with a dedicated console before your laptop fan achieves orbital liftoff.`,
       },
       {
         id: "thermal_throttle",
         match: (s) => s.hardware === "pc_budget",
         stamp: "THERMAL THROTTLE BOMB",
-        line: "Even if the PC port dropped tomorrow, 4GB VRAM would turn Vice City into a PowerPoint presentation and fry eggs on your WASD keys.",
-      },
-      {
-        id: "cope_pilot",
-        match: (s) => s.hardware === "pc_mid_high",
-        stamp: "1440P COPE PILOT",
-        line: "Your rig can run anything on PC, which is exactly why you're refreshing the Rockstar newsroom every morning instead of playing something.",
+        estimatedPlayDate: "Never on this rig (unless 720p 14 FPS counts)",
+        line: (s) => `Even if Rockstar released a PC port tomorrow, your ${_hw(s)} would deliver 14 FPS at 720p Low and fry eggs on your WASD keys. At ${_cop(s)}% Copium, consider buying thermal paste instead.`,
       },
       {
         id: "walkthrough_warrior",
-        match: (s) => hardwareIn(s, "pc_igpu", "pc_ancient", "macbook", "handheld"),
+        match: (s) => hwTier(s) === "pc_low",
         stamp: "480P WALKTHROUGH WARRIOR",
-        line: (s) => s.hardware === "handheld"
-          ? "Your Steam Deck can run Elden Ring at 30 FPS, but Vice City is a PC-only dream for now. Your only playable edition is a YouTube walkthrough."
-          : "Your GPU struggles to render Chrome tabs. Your only playable edition is 'GTA 6 Full Gameplay No Commentary [4K 60FPS]' on YouTube.",
+        estimatedPlayDate: "Tonight on YouTube (No Commentary 4K)",
+        line: (s) => `Your ${_hw(s)} struggles to render Chrome tabs under "${_net(s)}." At ${_cop(s)}% Copium, your only verified playable edition is 'GTA 6 Full Gameplay No Commentary [4K 60FPS]' on YouTube.`,
       },
-      {
-        id: "museum_artifact",
-        match: (s) => s.hardware === "ps4_xb1",
-        stamp: "MUSEUM ARTIFACT DETECTED",
-        line: "Your console is 13 years old—almost as old as GTA 5. Launching GTA 6 on a PS4 would turn its cooling fan into a Boeing 747 turbine.", // VERIFY before launch — age claim depends on the current year
-      },
+
+      /* ── BUCKET 4: Legacy Consoles, Handhelds & Mobile (ps4_xb1, handheld, mobile) ── */
       {
         id: "fake_apk",
         match: (s) => s.hardware === "mobile",
         stamp: "FAKE APK VICTIM",
-        line: "Rockstar didn't release it on PC, let alone Android. Stop searching 'GTA 6 MediaFire 200MB highly compressed' before you get ransomware.",
+        estimatedPlayDate: "Never (Unless Netflix Cloud Gaming does a miracle in 2030)",
+        line: (s) => `You are on ${_hw(s)}. There is no mobile port. Stop searching 'GTA 6 MediaFire 200MB compressed APK' with ${_cop(s)}% Copium before you install Russian crypto ransomware on your phone.`,
       },
       {
-        id: "impulse_buyer",
-        match: (s) => !isConsole(s) && (s.budget === "emi_warrior" || s.budget === "ps5_ready"),
-        stamp: "IMPULSE PS5 BUYER",
-        line: "Your bank account is begging you not to swipe ₹65k for a PS5 Slim + ₹5,999 game just to play one title—and you're about to ignore it anyway.", // VERIFY before launch — console and game prices
+        id: "nextgen_upgrade",
+        match: (s) => hwTier(s) === "legacy" && walletRich(s),
+        stamp: "NEXT-GEN UPGRADE INCOMING",
+        estimatedPlayDate: "Tomorrow afternoon (PS5 Slim arrives)",
+        line: (s) => `You are clinging to a ${_hw(s)} despite having "${_bud(s)}" available. At ${_cop(s)}% Copium, a PS5 Slim and GTA 6 bundle is already destined for your checkout cart.`,
       },
       {
-        id: "fallback",
-        match: () => true,
-        stamp: "BUY THE CONSOLE, SKIP THE COPE",
-        line: "Your wallet has options. Your hardware has options. The only thing you don't have is an excuse.",
+        id: "broke_detention",
+        match: (s) => hwTier(s) === "legacy" && lifeStudent(s) && walletBroke(s),
+        stamp: "BROKE & DETENTION BOUND",
+        estimatedPlayDate: "After re-evaluations and next year's campus placements",
+        line: (s) => `You are on a ${_hw(s)} with "${_bud(s)}" during "${_lif(s)}." At ${_cop(s)}% Copium, you need to survive your internals first before dreaming of Vice City.`,
+      },
+      {
+        id: "cafe_regular",
+        match: (s) => hwTier(s) === "legacy",
+        stamp: "₹100/HR GAMING CAFE REGULAR",
+        estimatedPlayDate: "This weekend at your local gaming lounge (₹100/hr)",
+        line: (s) => `Your ${_hw(s)} cannot run GTA 6 and your wallet is tight. At ${_cop(s)}% Copium, gather ₹300 and head down to the local PS5 gaming cafe to rent Vice City by the hour.`,
       },
     ];
 
@@ -903,13 +1384,20 @@
     }
 
     function computeVerdict(s) {
-      const rule = VERDICTS.find((candidate) => candidate.match(s));
-      const base = typeof rule.line === "function" ? rule.line(s) : rule.line;
+      const rule = VERDICTS.find((candidate) => candidate.match(s)) || VERDICTS[VERDICTS.length - 1];
+      const baseLine = typeof rule.line === "function" ? rule.line(s) : rule.line;
+      const playDate = typeof rule.estimatedPlayDate === "function" ? rule.estimatedPlayDate(s) : (rule.estimatedPlayDate || CONFIG.PC_PLAYABLE_NOTE);
       const modifier = COPIUM_MODIFIERS.find((m) => m.test(s.copium));
-      return { id: rule.id, stamp: rule.stamp, line: modifier ? base + modifier.text : base };
+      return {
+        id: rule.id,
+        stamp: rule.stamp,
+        line: modifier ? baseLine + modifier.text : baseLine,
+        estimatedPlayDate: playDate,
+      };
     }
 
     function estimateDownload(network) {
+      if (!network) return "N/A";
       if (network.dailyCapGB) {
         return `${Math.ceil(CONFIG.STORAGE_GB / network.dailyCapGB)} days`;
       }
@@ -924,6 +1412,7 @@
     function buildResult() {
       const hardware = getOption("hardware", state.hardware);
       const network = getOption("network", state.network);
+      const verdict = computeVerdict(state);
       return {
         hardware,
         budget: getOption("budget", state.budget),
@@ -932,11 +1421,12 @@
         score: Number(state.copium.toFixed(1)),
         cope: state.copium.toFixed(1),
         copeLabel: getCopiumLabel(state.copium),
-        verdict: computeVerdict(state),
+        verdict: verdict,
         storage: `${CONFIG.STORAGE_GB} GB`,
         download: estimateDownload(network),
-        playable: hardware.isConsole ? CONFIG.CONSOLE_PLAYABLE : CONFIG.PC_PLAYABLE_NOTE,
+        playable: verdict.estimatedPlayDate,
       };
+    }
     }
 
     /* =========================================================
@@ -1625,4 +2115,5 @@
     init();
   </script>
 </body>
+
 </html>
